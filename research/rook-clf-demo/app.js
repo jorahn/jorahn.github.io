@@ -210,58 +210,122 @@ function tokenizeRookFen(fen, vocab) {
   return { input_ids: tokens, attention_mask: attentionMask };
 }
 
+// Update loading UI
+function updateLoadingProgress(progress, status, details) {
+  const overlay = document.getElementById('loading-overlay');
+  const progressFill = document.getElementById('progress-fill');
+  const statusEl = document.querySelector('.loading-status');
+  const detailsEl = document.getElementById('loading-details');
+  
+  if (progressFill) progressFill.style.width = `${progress}%`;
+  if (statusEl) statusEl.textContent = status;
+  if (detailsEl) detailsEl.textContent = details;
+  
+  // Hide overlay when done
+  if (progress >= 100 && overlay) {
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+    }, 500);
+  }
+}
+
 // Load ONNX model
 async function ensureModelLoaded() {
   if (session) return session;
   
   statusEl.textContent = 'Loading model...';
+  updateLoadingProgress(5, 'Initializing...', 'Setting up environment');
   
   try {
+    updateLoadingProgress(10, 'Loading configuration...', 'Fetching model config');
     config = await loadConfig();
     console.log('Config loaded, classes:', Object.keys(config.id2label).length);
     numClassesEl.textContent = Object.keys(config.id2label).length;
     
+    updateLoadingProgress(20, 'Loading tokenizer...', 'Preparing text processing');
     tokenizerData = await loadTokenizer();
     console.log('Tokenizer loaded');
     
     const modelPath = './model/ROOK-CLF-9m-transformersjs/model.quant.onnx';
     
     // Try to load from cache first
+    updateLoadingProgress(25, 'Checking cache...', 'Looking for cached model');
     statusEl.textContent = 'Loading model (checking cache)...';
     let cachedModel = await getCachedModel(modelPath);
     
     if (cachedModel) {
       console.log('Loading model from cache');
+      updateLoadingProgress(50, 'Loading from cache...', 'Found cached model, loading');
       statusEl.textContent = 'Loading model (from cache)...';
       session = await ort.InferenceSession.create(cachedModel, {
         executionProviders: ['wasm'],
         graphOptimizationLevel: 'all'
       });
+      updateLoadingProgress(95, 'Finalizing...', 'Model loaded successfully');
     } else {
       console.log('Loading model from network (first time)');
+      updateLoadingProgress(30, 'Downloading model...', 'This may take a moment (9.5 MB)');
       statusEl.textContent = 'Loading model (downloading)...';
       
-      // Fetch the model file
+      // Fetch the model file with progress tracking
       const response = await fetch(modelPath);
-      const modelData = await response.arrayBuffer();
+      const reader = response.body.getReader();
+      const contentLength = +response.headers.get('Content-Length');
+      
+      let receivedLength = 0;
+      let chunks = [];
+      
+      while(true) {
+        const {done, value} = await reader.read();
+        
+        if (done) break;
+        
+        chunks.push(value);
+        receivedLength += value.length;
+        
+        // Update progress (30-80% for download)
+        const downloadProgress = (receivedLength / contentLength) * 50 + 30;
+        const mbReceived = (receivedLength / 1024 / 1024).toFixed(1);
+        const mbTotal = (contentLength / 1024 / 1024).toFixed(1);
+        updateLoadingProgress(
+          Math.min(downloadProgress, 80),
+          'Downloading model...',
+          `${mbReceived} MB / ${mbTotal} MB`
+        );
+      }
+      
+      // Combine chunks into single array
+      updateLoadingProgress(85, 'Processing model...', 'Preparing model data');
+      let chunksAll = new Uint8Array(receivedLength);
+      let position = 0;
+      for(let chunk of chunks) {
+        chunksAll.set(chunk, position);
+        position += chunk.length;
+      }
+      
+      const modelData = chunksAll.buffer;
       
       // Create session
+      updateLoadingProgress(90, 'Initializing model...', 'Creating inference session');
       session = await ort.InferenceSession.create(modelData, {
         executionProviders: ['wasm'],
         graphOptimizationLevel: 'all'
       });
       
       // Cache for future use
+      updateLoadingProgress(95, 'Caching model...', 'Saving for faster future loads');
       await cacheModel(modelPath, modelData);
     }
     
     console.log('ONNX model loaded');
+    updateLoadingProgress(100, 'Ready!', 'Model loaded successfully');
     
     statusEl.textContent = 'Model ready';
     return session;
   } catch (err) {
     console.error('Failed to load model:', err);
     statusEl.textContent = 'Failed to load model';
+    updateLoadingProgress(0, 'Error', `Failed to load model: ${err.message}`);
     throw err;
   }
 }
