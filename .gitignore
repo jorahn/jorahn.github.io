@@ -1,0 +1,11 @@
+# Ignore node_modules in the research demo directory
+research/rook-clf-demo/node_modules/
+
+# Keep the ONNX runtime files in root (needed for demo to work on GitHub Pages)
+# but ignore everything else if we add more packages later
+node_modules/*
+!node_modules/onnxruntime-web/
+
+# OS and log files
+.DS_Store
+*.log

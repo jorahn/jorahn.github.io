@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research - Jonathan Rahn</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">Jonathan Rahn</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">About</a>
+                <a href="/research/" class="nav-link active">Research</a>
+                <a href="/blog/" class="nav-link">Blog</a>
+                <a href="https://github.com/jorahn" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://huggingface.co/jrahn" class="nav-link" target="_blank">HuggingFace</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Research Projects</h1>
+                <p class="subtitle">Interactive Demos & Experiments</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h2>Interactive Demos</h2>
+            
+            <div class="project-card">
+                <h3>ROOK-CLF-9M Interactive Chess Analysis</h3>
+                <p>Explore how a 9M parameter language model achieves strategic chess reasoning without search. This interactive demo allows you to analyze any chess position and see the model's move predictions and confidence scores.</p>
+                
+                <div class="metrics">
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                        <li>49% best move accuracy (Google DeepMind benchmark)</li>
+                        <li>57% checkmate-in-one accuracy</li>
+                        <li>Searchless strategic reasoning</li>
+                        <li>Real-time browser inference</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-link">
+                    <a href="/research/rook-clf-demo/" class="btn-primary">Launch Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>RookWorld Interactive Space</h3>
+                <p>Experience the unified agent+environment model that combines chess policy and world simulation in a single transformer. Play against the model or watch it play against itself.</p>
+                
+                <div class="metrics">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Self-play without external engines</li>
+                        <li>99.9% environment simulation accuracy</li>
+                        <li>Chain-of-thought reasoning traces</li>
+                        <li>Multi-task learning demonstration</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-link">
+                    <a href="https://huggingface.co/spaces/jrahn/rookworld" target="_blank" class="btn-primary">Launch on HuggingFace</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Research Papers & Notes</h2>
+            
+            <div class="project-card">
+                <h3>ROOK: Reasoning Over Organized Knowledge</h3>
+                <p>LAION research note detailing the development of language models for strategic reasoning through chess, including architectural innovations and training methodologies.</p>
+                
+                <div class="project-links">
+                    <a href="https://laion.ai/notes/rook/" target="_blank" class="project-link">Read Paper</a>
+                    <a href="https://github.com/jorahn/rook" target="_blank" class="project-link">View Code</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Grandmaster-Level Chess Without Search (Reproduction)</h3>
+                <p>Our reproduction and extension of Google DeepMind's landmark paper, demonstrating that small language models can achieve strong chess performance without traditional search algorithms.</p>
+                
+                <div class="project-links">
+                    <a href="https://arxiv.org/abs/2402.04494" target="_blank" class="project-link">Original Paper</a>
+                    <a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank" class="project-link">Our Model</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Datasets & Models</h2>
+            
+            <div class="contribution-grid">
+                <div class="contribution">
+                    <h3>Datasets</h3>
+                    <ul>
+                        <li><a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank">rook_40m</a> - 40M chess positions with Stockfish annotations</li>
+                        <li><a href="https://huggingface.co/datasets/jrahn/rookworld_7m" target="_blank">rookworld_7m</a> - Multi-task chess dataset</li>
+                        <li><a href="https://huggingface.co/datasets/jrahn/yolochess_lichess-elite_2211" target="_blank">yolochess_lichess-elite_2211</a> - Elite chess games dataset</li>
+                    </ul>
+                </div>
+                
+                <div class="contribution">
+                    <h3>Models</h3>
+                    <ul>
+                        <li><a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank">ROOK-CLF-9M</a> - Classification model</li>
+                        <li><a href="https://huggingface.co/jrahn/RookWorld-LM-124M" target="_blank">RookWorld-LM-124M</a> - Unified agent+environment</li>
+                        <li>RookWorld-RLVR - Coming soon</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Jonathan Rahn. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

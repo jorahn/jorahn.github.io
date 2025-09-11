@@ -1,0 +1,802 @@
+[
+  {
+    "fen": "7k/pp1R1p1p/2n1pP1r/8/5P2/8/P5P1/6K1 b - - 1 32",
+    "turn": "black",
+    "move_number": 32,
+    "phase": "middlegame",
+    "legal_moves": 20,
+    "text_sample": "P: 7k/pp1R1p1p/2n1pP1r/8/5P2/8/P5P1/6K1 b - - 1 32                                           M: h8g8..."
+  },
+  {
+    "fen": "8/2r3k1/6pp/pQn1q1p1/1p4P1/1P2PPN1/P5P1/6KR w - - 7 36",
+    "turn": "white",
+    "move_number": 36,
+    "phase": "middlegame",
+    "legal_moves": 32,
+    "text_sample": "P: 8/2r3k1/6pp/pQn1q1p1/1p4P1/1P2PPN1/P5P1/6KR w - - 7 36                                    M: g3f1..."
+  },
+  {
+    "fen": "3rr1k1/2q2pp1/p1npb2p/1pp1p3/4P1P1/2PPNQ2/PPB2PP1/R3R1K1 w - - 1 20",
+    "turn": "white",
+    "move_number": 20,
+    "phase": "opening",
+    "legal_moves": 36,
+    "text_sample": "P: 3rr1k1/2q2pp1/p1npb2p/1pp1p3/4P1P1/2PPNQ2/PPB2PP1/R3R1K1 w - - 1 20                       M: c2d1..."
+  },
+  {
+    "fen": "2r4r/3bk1bp/p2p1pp1/1p6/3PN3/P1N5/1P3PPP/R3K2R w KQ - 2 19",
+    "turn": "white",
+    "move_number": 19,
+    "phase": "middlegame",
+    "legal_moves": 35,
+    "text_sample": "P: 2r4r/3bk1bp/p2p1pp1/1p6/3PN3/P1N5/1P3PPP/R3K2R w KQ - 2 19                                M: e1e2..."
+  },
+  {
+    "fen": "2rrb1k1/4bp1p/p1nqpnp1/6N1/1p1P4/P1N1B3/1P2QPPP/1BRR2K1 w - - 0 19",
+    "turn": "white",
+    "move_number": 19,
+    "phase": "opening",
+    "legal_moves": 47,
+    "text_sample": "P: 2rrb1k1/4bp1p/p1nqpnp1/6N1/1p1P4/P1N1B3/1P2QPPP/1BRR2K1 w - - 0 19                        M: c3a4..."
+  },
+  {
+    "fen": "8/5ppk/P3p2p/3r4/1P3Q2/6P1/2qp1P1P/5RK1 b - - 0 38",
+    "turn": "black",
+    "move_number": 38,
+    "phase": "middlegame",
+    "legal_moves": 42,
+    "text_sample": "P: 8/5ppk/P3p2p/3r4/1P3Q2/6P1/2qp1P1P/5RK1 b - - 0 38                                        M: d2d1..."
+  },
+  {
+    "fen": "r2qk2r/1p1nbppp/p1p1pn2/2Pp1b2/3P1B1N/2N1P2P/PP3PP1/R2QKB1R b KQkq - 2 9",
+    "turn": "black",
+    "move_number": 9,
+    "phase": "opening",
+    "legal_moves": 39,
+    "text_sample": "P: r2qk2r/1p1nbppp/p1p1pn2/2Pp1b2/3P1B1N/2N1P2P/PP3PP1/R2QKB1R b KQkq - 2 9                  M: f5e4..."
+  },
+  {
+    "fen": "r2qr1k1/pp1n1ppp/2pbpn2/3p4/2PP4/1PNQPN2/PB3PPP/R2R2K1 b - - 2 11",
+    "turn": "black",
+    "move_number": 11,
+    "phase": "opening",
+    "legal_moves": 42,
+    "text_sample": "P: r2qr1k1/pp1n1ppp/2pbpn2/3p4/2PP4/1PNQPN2/PB3PPP/R2R2K1 b - - 2 11                         M: d6c7..."
+  },
+  {
+    "fen": "r2q1rk1/pppn2bp/1n2p1p1/3pP3/1P1P4/3B3P/P1PBN1P1/RQ3RK1 b - - 0 14",
+    "turn": "black",
+    "move_number": 14,
+    "phase": "opening",
+    "legal_moves": 36,
+    "text_sample": "P: r2q1rk1/pppn2bp/1n2p1p1/3pP3/1P1P4/3B3P/P1PBN1P1/RQ3RK1 b - - 0 14                        M: d8h4..."
+  },
+  {
+    "fen": "2kr3r/ppb4p/2n2p1n/2P3N1/3p4/1N6/PP1B1PBq/R2QRK2 b - - 2 21",
+    "turn": "black",
+    "move_number": 21,
+    "phase": "middlegame",
+    "legal_moves": 44,
+    "text_sample": "P: 2kr3r/ppb4p/2n2p1n/2P3N1/3p4/1N6/PP1B1PBq/R2QRK2 b - - 2 21                               M: d8g8..."
+  },
+  {
+    "fen": "r5k1/2p5/p2p2p1/1p2rpq1/8/P1NB4/1PP2RPP/R5K1 w - - 3 24",
+    "turn": "white",
+    "move_number": 24,
+    "phase": "middlegame",
+    "legal_moves": 35,
+    "text_sample": "P: r5k1/2p5/p2p2p1/1p2rpq1/8/P1NB4/1PP2RPP/R5K1 w - - 3 24                                   M: a1d1..."
+  },
+  {
+    "fen": "2r2rk1/1p1bbppp/pq1p1n2/P2Pp1B1/1n2P3/2N2N2/1P3PPP/R2QRBK1 b - - 0 15",
+    "turn": "black",
+    "move_number": 15,
+    "phase": "opening",
+    "legal_moves": 44,
+    "text_sample": "P: 2r2rk1/1p1bbppp/pq1p1n2/P2Pp1B1/1n2P3/2N2N2/1P3PPP/R2QRBK1 b - - 0 15                     M: b6a7..."
+  },
+  {
+    "fen": "2k4r/pp3pp1/7p/2p1Pq1P/3r1PR1/4K3/P1P3P1/R2Q4 w - - 0 20",
+    "turn": "white",
+    "move_number": 20,
+    "phase": "middlegame",
+    "legal_moves": 27,
+    "text_sample": "P: 2k4r/pp3pp1/7p/2p1Pq1P/3r1PR1/4K3/P1P3P1/R2Q4 w - - 0 20                                  M: d1h1..."
+  },
+  {
+    "fen": "r1r3k1/5ppp/pB2p3/2Pb4/8/P3P2P/3RBPP1/6K1 b - - 0 27",
+    "turn": "black",
+    "move_number": 27,
+    "phase": "middlegame",
+    "legal_moves": 27,
+    "text_sample": "P: r1r3k1/5ppp/pB2p3/2Pb4/8/P3P2P/3RBPP1/6K1 b - - 0 27                                      M: d5c6..."
+  },
+  {
+    "fen": "8/1p3p2/1P6/2B2p2/4bK2/3k2Pp/7P/8 b - - 13 51",
+    "turn": "black",
+    "move_number": 51,
+    "phase": "endgame",
+    "legal_moves": 11,
+    "text_sample": "P: 8/1p3p2/1P6/2B2p2/4bK2/3k2Pp/7P/8 b - - 13 51                                             M: f7f6..."
+  },
+  {
+    "fen": "r6k/3n1r1p/p4p1P/Bppbp1p1/6P1/8/PPB3P1/2KRR3 b - - 0 28",
+    "turn": "black",
+    "move_number": 28,
+    "phase": "middlegame",
+    "legal_moves": 27,
+    "text_sample": "P: r6k/3n1r1p/p4p1P/Bppbp1p1/6P1/8/PPB3P1/2KRR3 b - - 0 28                                   M: d5g2..."
+  },
+  {
+    "fen": "4kr2/3p3p/p3p3/6pN/8/4Q1Pb/PqR2P1P/4R1K1 b - - 0 24",
+    "turn": "black",
+    "move_number": 24,
+    "phase": "middlegame",
+    "legal_moves": 39,
+    "text_sample": "P: 4kr2/3p3p/p3p3/6pN/8/4Q1Pb/PqR2P1P/4R1K1 b - - 0 24                                       M: b2b7..."
+  },
+  {
+    "fen": "r4rk1/pp4pp/n1p1q3/5b2/2P5/1NQ3P1/P5BP/3R1R1K b - - 11 26",
+    "turn": "black",
+    "move_number": 26,
+    "phase": "middlegame",
+    "legal_moves": 46,
+    "text_sample": "P: r4rk1/pp4pp/n1p1q3/5b2/2P5/1NQ3P1/P5BP/3R1R1K b - - 11 26                                 M: f5g4..."
+  },
+  {
+    "fen": "r1bq1rk1/1p1p1ppp/p1n5/2b1p3/4PB2/2N5/PPP1BPPP/R2Q1RK1 w - - 0 12",
+    "turn": "white",
+    "move_number": 12,
+    "phase": "opening",
+    "legal_moves": 39,
+    "text_sample": "P: r1bq1rk1/1p1p1ppp/p1n5/2b1p3/4PB2/2N5/PPP1BPPP/R2Q1RK1 w - - 0 12                         M: c3a4..."
+  },
+  {
+    "fen": "2b1r1k1/r2n2p1/p4B1p/1p1N4/8/2P2R2/P1P2PPP/2KR4 b - - 0 21",
+    "turn": "black",
+    "move_number": 21,
+    "phase": "middlegame",
+    "legal_moves": 29,
+    "text_sample": "P: 2b1r1k1/r2n2p1/p4B1p/1p1N4/8/2P2R2/P1P2PPP/2KR4 b - - 0 21                                M: d7f8..."
+  },
+  {
+    "fen": "3r4/1p1k2p1/pRb1r2p/4B2P/2Q5/P7/2P2PPK/8 w - - 5 37",
+    "turn": "white",
+    "move_number": 37,
+    "phase": "middlegame",
+    "legal_moves": 48,
+    "text_sample": "P: 3r4/1p1k2p1/pRb1r2p/4B2P/2Q5/P7/2P2PPK/8 w - - 5 37                                       M: b6c6..."
+  },
+  {
+    "fen": "r2qkb1r/3ppppp/p2P1nb1/np6/8/2N2N2/PP2BPPP/R1BQ1RK1 b kq - 0 11",
+    "turn": "black",
+    "move_number": 11,
+    "phase": "opening",
+    "legal_moves": 29,
+    "text_sample": "P: r2qkb1r/3ppppp/p2P1nb1/np6/8/2N2N2/PP2BPPP/R1BQ1RK1 b kq - 0 11                           M: e7e6..."
+  },
+  {
+    "fen": "5rk1/1R3pp1/8/p3P3/8/1P4QP/4RPPK/r2q4 w - - 6 29",
+    "turn": "white",
+    "move_number": 29,
+    "phase": "middlegame",
+    "legal_moves": 31,
+    "text_sample": "P: 5rk1/1R3pp1/8/p3P3/8/1P4QP/4RPPK/r2q4 w - - 6 29                                          M: b7f7..."
+  },
+  {
+    "fen": "2r1k2r/1pqb1pbp/p1np1np1/4p3/4PPP1/1P2BNNP/P1PQ2B1/R3K2R b KQk - 3 15",
+    "turn": "black",
+    "move_number": 15,
+    "phase": "opening",
+    "legal_moves": 38,
+    "text_sample": "P: 2r1k2r/1pqb1pbp/p1np1np1/4p3/4PPP1/1P2BNNP/P1PQ2B1/R3K2R b KQk - 3 15                     M: f6g4..."
+  },
+  {
+    "fen": "2Q2k2/pp4p1/7p/3q4/8/5P2/P5PP/5K2 b - - 1 33",
+    "turn": "black",
+    "move_number": 33,
+    "phase": "endgame",
+    "legal_moves": 3,
+    "text_sample": "P: 2Q2k2/pp4p1/7p/3q4/8/5P2/P5PP/5K2 b - - 1 33                                              M: f8e7..."
+  },
+  {
+    "fen": "r2qkb1r/pppb2pp/8/3P1p2/3Pp1n1/1QNnP1P1/PP2NPBP/R1B2K1R b kq - 7 11",
+    "turn": "black",
+    "move_number": 11,
+    "phase": "opening",
+    "legal_moves": 46,
+    "text_sample": "P: r2qkb1r/pppb2pp/8/3P1p2/3Pp1n1/1QNnP1P1/PP2NPBP/R1B2K1R b kq - 7 11                       M: f8e7..."
+  },
+  {
+    "fen": "8/2rN1pk1/8/q3p3/2B1Pp1p/5PnP/1R4PK/6Q1 b - - 0 57",
+    "turn": "black",
+    "move_number": 57,
+    "phase": "middlegame",
+    "legal_moves": 35,
+    "text_sample": "P: 8/2rN1pk1/8/q3p3/2B1Pp1p/5PnP/1R4PK/6Q1 b - - 0 57                                        M: f7f6..."
+  },
+  {
+    "fen": "5b2/5P2/5K2/P1k5/2P5/8/2P4p/7N b - - 0 60",
+    "turn": "black",
+    "move_number": 60,
+    "phase": "endgame",
+    "legal_moves": 9,
+    "text_sample": "P: 5b2/5P2/5K2/P1k5/2P5/8/2P4p/7N b - - 0 60                                                 M: c5c6..."
+  },
+  {
+    "fen": "r1b1r1k1/pp3pBp/3p2p1/2pP3n/2P1P2q/3B1PP1/PP5P/R2QK1NR b KQ - 0 14",
+    "turn": "black",
+    "move_number": 14,
+    "phase": "opening",
+    "legal_moves": 35,
+    "text_sample": "P: r1b1r1k1/pp3pBp/3p2p1/2pP3n/2P1P2q/3B1PP1/PP5P/R2QK1NR b KQ - 0 14                        M: h5g3..."
+  },
+  {
+    "fen": "2r3k1/3n1pb1/b3p1p1/3pq3/p7/Pr2B1P1/R4PB1/2Q1RNK1 w - - 2 27",
+    "turn": "white",
+    "move_number": 27,
+    "phase": "middlegame",
+    "legal_moves": 39,
+    "text_sample": "P: 2r3k1/3n1pb1/b3p1p1/3pq3/p7/Pr2B1P1/R4PB1/2Q1RNK1 w - - 2 27                              M: c1d2..."
+  },
+  {
+    "fen": "7k/p4p2/P2p1P1b/1ppNr1r1/4B3/2PP4/1P3K1P/R7 w - - 1 33",
+    "turn": "white",
+    "move_number": 33,
+    "phase": "middlegame",
+    "legal_moves": 34,
+    "text_sample": "P: 7k/p4p2/P2p1P1b/1ppNr1r1/4B3/2PP4/1P3K1P/R7 w - - 1 33                                    M: a1e1..."
+  },
+  {
+    "fen": "2k3r1/pp3p2/2p5/3pPb2/2qP4/2N1P1P1/PP2Q3/2K3R1 b - - 3 27",
+    "turn": "black",
+    "move_number": 27,
+    "phase": "middlegame",
+    "legal_moves": 40,
+    "text_sample": "P: 2k3r1/pp3p2/2p5/3pPb2/2qP4/2N1P1P1/PP2Q3/2K3R1 b - - 3 27                                 M: f5e6..."
+  },
+  {
+    "fen": "r4rk1/ppp2ppp/2n5/2b1p2n/6P1/N1P4P/PP1PRqBK/R1BQ4 b - - 0 16",
+    "turn": "black",
+    "move_number": 16,
+    "phase": "middlegame",
+    "legal_moves": 48,
+    "text_sample": "P: r4rk1/ppp2ppp/2n5/2b1p2n/6P1/N1P4P/PP1PRqBK/R1BQ4 b - - 0 16                              M: h5f4..."
+  },
+  {
+    "fen": "r1k4r/pppnb2p/4bp2/4p3/4N3/3BNP2/PPP3PP/1K1R3R b - - 8 16",
+    "turn": "black",
+    "move_number": 16,
+    "phase": "middlegame",
+    "legal_moves": 35,
+    "text_sample": "P: r1k4r/pppnb2p/4bp2/4p3/4N3/3BNP2/PPP3PP/1K1R3R b - - 8 16                                 M: d7c5..."
+  },
+  {
+    "fen": "1qr2bk1/r4p1p/p5p1/3P2Q1/2p4P/2Bn2P1/1P3PB1/R3R1K1 b - - 5 30",
+    "turn": "black",
+    "move_number": 30,
+    "phase": "middlegame",
+    "legal_moves": 42,
+    "text_sample": "P: 1qr2bk1/r4p1p/p5p1/3P2Q1/2p4P/2Bn2P1/1P3PB1/R3R1K1 b - - 5 30                             M: f8g7..."
+  },
+  {
+    "fen": "1r6/1P5R/3bkp2/6p1/4p2p/4PP1P/7K/4B3 w - - 0 40",
+    "turn": "white",
+    "move_number": 40,
+    "phase": "middlegame",
+    "legal_moves": 5,
+    "text_sample": "P: 1r6/1P5R/3bkp2/6p1/4p2p/4PP1P/7K/4B3 w - - 0 40                                           M: h2g1..."
+  },
+  {
+    "fen": "r2qnrk1/1p1n1ppp/p2p4/3Pp1B1/8/1N1Q4/PPP1BPPP/3R1RK1 b - - 0 14",
+    "turn": "black",
+    "move_number": 14,
+    "phase": "middlegame",
+    "legal_moves": 27,
+    "text_sample": "P: r2qnrk1/1p1n1ppp/p2p4/3Pp1B1/8/1N1Q4/PPP1BPPP/3R1RK1 b - - 0 14                           M: d7c5..."
+  },
+  {
+    "fen": "r1b2rnk/1p1n2bp/p2q4/2pPp3/P1P2p2/2NN4/1P1Q1BPP/3BRRK1 b - - 1 19",
+    "turn": "black",
+    "move_number": 19,
+    "phase": "opening",
+    "legal_moves": 32,
+    "text_sample": "P: r1b2rnk/1p1n2bp/p2q4/2pPp3/P1P2p2/2NN4/1P1Q1BPP/3BRRK1 b - - 1 19                         M: g8f6..."
+  },
+  {
+    "fen": "r3r1kb/1p3p2/p4nn1/2pP1qB1/P6Q/7P/1P2B1P1/R4RK1 w - - 4 37",
+    "turn": "white",
+    "move_number": 37,
+    "phase": "middlegame",
+    "legal_moves": 49,
+    "text_sample": "P: r3r1kb/1p3p2/p4nn1/2pP1qB1/P6Q/7P/1P2B1P1/R4RK1 w - - 4 37                                M: h4g3..."
+  },
+  {
+    "fen": "3r1rk1/pp2q1pp/3pb3/2n1np2/2PN4/PP2PP2/1BB3PP/R2Q1RK1 b - - 2 17",
+    "turn": "black",
+    "move_number": 17,
+    "phase": "middlegame",
+    "legal_moves": 46,
+    "text_sample": "P: 3r1rk1/pp2q1pp/3pb3/2n1np2/2PN4/PP2PP2/1BB3PP/R2Q1RK1 b - - 2 17                          M: f8f6..."
+  },
+  {
+    "fen": "1r6/8/2p3R1/2kp4/P7/KP2r3/8/8 w - - 5 50",
+    "turn": "white",
+    "move_number": 50,
+    "phase": "endgame",
+    "legal_moves": 15,
+    "text_sample": "P: 1r6/8/2p3R1/2kp4/P7/KP2r3/8/8 w - - 5 50                                                  M: a3b2..."
+  },
+  {
+    "fen": "r1q1k2r/ppp1ppb1/2n3pp/3pNb2/Q2PnB1P/2P3P1/PP1NPPB1/R3K2R b KQkq - 3 10",
+    "turn": "black",
+    "move_number": 10,
+    "phase": "opening",
+    "legal_moves": 34,
+    "text_sample": "P: r1q1k2r/ppp1ppb1/2n3pp/3pNb2/Q2PnB1P/2P3P1/PP1NPPB1/R3K2R b KQkq - 3 10                   M: g6g5..."
+  },
+  {
+    "fen": "1r1r2k1/2q2pp1/2p4p/2npPQ2/8/1PP3RP/3N2P1/4R1K1 b - - 2 26",
+    "turn": "black",
+    "move_number": 26,
+    "phase": "middlegame",
+    "legal_moves": 36,
+    "text_sample": "P: 1r1r2k1/2q2pp1/2p4p/2npPQ2/8/1PP3RP/3N2P1/4R1K1 b - - 2 26                                M: c7e7..."
+  },
+  {
+    "fen": "8/8/4k3/3r1p2/4pP2/4K1Pp/R6P/8 b - - 46 96",
+    "turn": "black",
+    "move_number": 96,
+    "phase": "endgame",
+    "legal_moves": 16,
+    "text_sample": "P: 8/8/4k3/3r1p2/4pP2/4K1Pp/R6P/8 b - - 46 96                                                M: d5d6..."
+  },
+  {
+    "fen": "r3r1k1/1bp2pbp/p2p2p1/Q1n3q1/1PPN4/R3P1BP/4BPP1/5RK1 b - b3 0 19",
+    "turn": "black",
+    "move_number": 19,
+    "phase": "middlegame",
+    "legal_moves": 52,
+    "text_sample": "P: r3r1k1/1bp2pbp/p2p2p1/Q1n3q1/1PPN4/R3P1BP/4BPP1/5RK1 b - b3 0 19                          M: e8e3..."
+  },
+  {
+    "fen": "1rbq1rk1/1p2ppbp/p1np1np1/2p5/P3P3/3P1NPP/1PPN1PB1/R1BQ1RK1 w - - 1 10",
+    "turn": "white",
+    "move_number": 10,
+    "phase": "opening",
+    "legal_moves": 27,
+    "text_sample": "P: 1rbq1rk1/1p2ppbp/p1np1np1/2p5/P3P3/3P1NPP/1PPN1PB1/R1BQ1RK1 w - - 1 10                    M: c2c3..."
+  },
+  {
+    "fen": "r1bqr1k1/ppp2pb1/3p1n1p/7P/2NP2p1/4P1B1/PPQ2PP1/2KR2NR b - - 0 14",
+    "turn": "black",
+    "move_number": 14,
+    "phase": "opening",
+    "legal_moves": 28,
+    "text_sample": "P: r1bqr1k1/ppp2pb1/3p1n1p/7P/2NP2p1/4P1B1/PPQ2PP1/2KR2NR b - - 0 14                         M: c8e6..."
+  },
+  {
+    "fen": "1rbq1rk1/4ppb1/2np2pp/1p2n3/4P3/1PN3PP/R1P1NPB1/2BQ1RK1 w - - 0 18",
+    "turn": "white",
+    "move_number": 18,
+    "phase": "opening",
+    "legal_moves": 37,
+    "text_sample": "P: 1rbq1rk1/4ppb1/2np2pp/1p2n3/4P3/1PN3PP/R1P1NPB1/2BQ1RK1 w - - 0 18                        M: f2f4..."
+  },
+  {
+    "fen": "3rr1k1/pp3ppp/2p2p2/3Q4/3P4/2P5/1P3PPb/3RR1K1 w - - 0 23",
+    "turn": "white",
+    "move_number": 23,
+    "phase": "middlegame",
+    "legal_moves": 3,
+    "text_sample": "P: 3rr1k1/pp3ppp/2p2p2/3Q4/3P4/2P5/1P3PPb/3RR1K1 w - - 0 23                                  M: g1f1..."
+  },
+  {
+    "fen": "8/1B3p1p/k2Nb1p1/2r5/1p4P1/8/1K5P/8 b - - 0 42",
+    "turn": "black",
+    "move_number": 42,
+    "phase": "endgame",
+    "legal_moves": 3,
+    "text_sample": "P: 8/1B3p1p/k2Nb1p1/2r5/1p4P1/8/1K5P/8 b - - 0 42                                            M: a6a7..."
+  },
+  {
+    "fen": "8/5pkp/6p1/1RbN4/4KP2/1p5r/8/8 b - - 3 42",
+    "turn": "black",
+    "move_number": 42,
+    "phase": "endgame",
+    "legal_moves": 31,
+    "text_sample": "P: 8/5pkp/6p1/1RbN4/4KP2/1p5r/8/8 b - - 3 42                                                 M: c5d6..."
+  },
+  {
+    "fen": "8/p1R3pp/4pk2/3b4/2B3K1/8/P7/3r4 w - - 9 37",
+    "turn": "white",
+    "move_number": 37,
+    "phase": "endgame",
+    "legal_moves": 23,
+    "text_sample": "P: 8/p1R3pp/4pk2/3b4/2B3K1/8/P7/3r4 w - - 9 37                                               M: c4a6..."
+  },
+  {
+    "fen": "6k1/5ppp/pR1rpb2/8/r3P3/7P/4NPP1/6K1 w - - 0 26",
+    "turn": "white",
+    "move_number": 26,
+    "phase": "middlegame",
+    "legal_moves": 24,
+    "text_sample": "P: 6k1/5ppp/pR1rpb2/8/r3P3/7P/4NPP1/6K1 w - - 0 26                                           M: b6b7..."
+  },
+  {
+    "fen": "2kr3r/pp1nbp1p/2p1bp2/6p1/3P4/3B1NB1/PPP2PPP/R4RK1 b - - 1 13",
+    "turn": "black",
+    "move_number": 13,
+    "phase": "middlegame",
+    "legal_moves": 32,
+    "text_sample": "P: 2kr3r/pp1nbp1p/2p1bp2/6p1/3P4/3B1NB1/PPP2PPP/R4RK1 b - - 1 13                             M: f6f5..."
+  },
+  {
+    "fen": "2bqr1k1/1p3pbp/r7/p2pn3/8/2P2PN1/P1B3PP/R1BQ1RK1 w - - 5 17",
+    "turn": "white",
+    "move_number": 17,
+    "phase": "middlegame",
+    "legal_moves": 37,
+    "text_sample": "P: 2bqr1k1/1p3pbp/r7/p2pn3/8/2P2PN1/P1B3PP/R1BQ1RK1 w - - 5 17                               M: g1h1..."
+  },
+  {
+    "fen": "3rrk2/pb3Bp1/2p4p/1nP1NP2/3n4/8/1B4PP/R3R1K1 w - - 1 32",
+    "turn": "white",
+    "move_number": 32,
+    "phase": "middlegame",
+    "legal_moves": 44,
+    "text_sample": "P: 3rrk2/pb3Bp1/2p4p/1nP1NP2/3n4/8/1B4PP/R3R1K1 w - - 1 32                                   M: b2d4..."
+  },
+  {
+    "fen": "4rk2/1p3p1p/8/PR2n3/8/2P1NpKP/5P2/8 w - - 3 39",
+    "turn": "white",
+    "move_number": 39,
+    "phase": "middlegame",
+    "legal_moves": 23,
+    "text_sample": "P: 4rk2/1p3p1p/8/PR2n3/8/2P1NpKP/5P2/8 w - - 3 39                                            M: g3f4..."
+  },
+  {
+    "fen": "r1bq1rk1/1p4b1/3p4/p2Ppp1P/4B3/4B3/PP6/R2QK1NR w KQ - 0 18",
+    "turn": "white",
+    "move_number": 18,
+    "phase": "middlegame",
+    "legal_moves": 44,
+    "text_sample": "P: r1bq1rk1/1p4b1/3p4/p2Ppp1P/4B3/4B3/PP6/R2QK1NR w KQ - 0 18                                M: e4c2..."
+  },
+  {
+    "fen": "r6k/2NPQ3/6p1/5pP1/p4P2/8/PP6/1K6 w - - 1 43",
+    "turn": "white",
+    "move_number": 43,
+    "phase": "endgame",
+    "legal_moves": 33,
+    "text_sample": "P: r6k/2NPQ3/6p1/5pP1/p4P2/8/PP6/1K6 w - - 1 43                                              M: a2a3..."
+  },
+  {
+    "fen": "8/1p3k2/2b2p2/2Rp3p/pB1P1K1P/P3PP2/1r6/8 w - - 24 48",
+    "turn": "white",
+    "move_number": 48,
+    "phase": "middlegame",
+    "legal_moves": 15,
+    "text_sample": "P: 8/1p3k2/2b2p2/2Rp3p/pB1P1K1P/P3PP2/1r6/8 w - - 24 48                                      M: c5a5..."
+  },
+  {
+    "fen": "4r3/7p/r1p1p1p1/1k1n3P/1p2R3/5P2/1P4P1/R5K1 w - - 0 50",
+    "turn": "white",
+    "move_number": 50,
+    "phase": "middlegame",
+    "legal_moves": 31,
+    "text_sample": "P: 4r3/7p/r1p1p1p1/1k1n3P/1p2R3/5P2/1P4P1/R5K1 w - - 0 50                                    M: a1f1..."
+  },
+  {
+    "fen": "2r2rk1/pp1qppbp/2n3p1/3Q4/3P4/2N1PB1P/PP4P1/2R2RK1 b - - 4 17",
+    "turn": "black",
+    "move_number": 17,
+    "phase": "middlegame",
+    "legal_moves": 37,
+    "text_sample": "P: 2r2rk1/pp1qppbp/2n3p1/3Q4/3P4/2N1PB1P/PP4P1/2R2RK1 b - - 4 17                             M: c8c7..."
+  },
+  {
+    "fen": "2rn2k1/3b2p1/1p2p2p/p4p1P/3P1B2/1B2R3/P4PPK/8 w - a6 0 47",
+    "turn": "white",
+    "move_number": 47,
+    "phase": "middlegame",
+    "legal_moves": 33,
+    "text_sample": "P: 2rn2k1/3b2p1/1p2p2p/p4p1P/3P1B2/1B2R3/P4PPK/8 w - a6 0 47                                 M: h2g3..."
+  },
+  {
+    "fen": "r4b1r/2kbqp2/1nn1p3/3pP1NN/1ppP1PQ1/P1P1B3/P1B3K1/R6R b - - 0 22",
+    "turn": "black",
+    "move_number": 22,
+    "phase": "middlegame",
+    "legal_moves": 40,
+    "text_sample": "P: r4b1r/2kbqp2/1nn1p3/3pP1NN/1ppP1PQ1/P1P1B3/P1B3K1/R6R b - - 0 22                          M: a8a3..."
+  },
+  {
+    "fen": "rn1qkb1r/pp2pppp/2p2nb1/4N3/3P2P1/2N5/PPP2P1P/R1BQKB1R w KQkq - 1 8",
+    "turn": "white",
+    "move_number": 8,
+    "phase": "opening",
+    "legal_moves": 43,
+    "text_sample": "P: rn1qkb1r/pp2pppp/2p2nb1/4N3/3P2P1/2N5/PPP2P1P/R1BQKB1R w KQkq - 1 8                       M: f2f4..."
+  },
+  {
+    "fen": "r1b1k2r/1pqnbppp/p1n1p3/2p1P3/2Pp3P/3P1NP1/PP2QPB1/RNB1R1K1 b kq - 2 11",
+    "turn": "black",
+    "move_number": 11,
+    "phase": "opening",
+    "legal_moves": 39,
+    "text_sample": "P: r1b1k2r/1pqnbppp/p1n1p3/2p1P3/2Pp3P/3P1NP1/PP2QPB1/RNB1R1K1 b kq - 2 11                   M: h7h6..."
+  },
+  {
+    "fen": "bQ6/P5pk/6np/3pPp2/5P2/4PP2/5q1P/4RB1K w - - 4 36",
+    "turn": "white",
+    "move_number": 36,
+    "phase": "middlegame",
+    "legal_moves": 32,
+    "text_sample": "P: bQ6/P5pk/6np/3pPp2/5P2/4PP2/5q1P/4RB1K w - - 4 36                                         M: e1b1..."
+  },
+  {
+    "fen": "2rqk2r/pp2bp2/2n2p2/4p2p/3p4/1N4P1/PPP1PPBP/R2Q1RK1 w k h6 0 14",
+    "turn": "white",
+    "move_number": 14,
+    "phase": "middlegame",
+    "legal_moves": 32,
+    "text_sample": "P: 2rqk2r/pp2bp2/2n2p2/4p2p/3p4/1N4P1/PPP1PPBP/R2Q1RK1 w k h6 0 14                           M: d1d3..."
+  },
+  {
+    "fen": "6k1/6p1/4p2p/3pPr2/p2PbB2/q1P5/3Q2P1/2R3K1 w - - 2 40",
+    "turn": "white",
+    "move_number": 40,
+    "phase": "middlegame",
+    "legal_moves": 27,
+    "text_sample": "P: 6k1/6p1/4p2p/3pPr2/p2PbB2/q1P5/3Q2P1/2R3K1 w - - 2 40                                     M: c1f1..."
+  },
+  {
+    "fen": "4r3/7R/6p1/5p2/P1n2Pk1/1R2P3/5K1P/8 b - - 2 35",
+    "turn": "black",
+    "move_number": 35,
+    "phase": "endgame",
+    "legal_moves": 21,
+    "text_sample": "P: 4r3/7R/6p1/5p2/P1n2Pk1/1R2P3/5K1P/8 b - - 2 35                                            M: g6g5..."
+  },
+  {
+    "fen": "8/1p2k1p1/p6p/P2Bp2P/2Rnp3/5P1K/1r4P1/2r5 w - - 0 46",
+    "turn": "white",
+    "move_number": 46,
+    "phase": "middlegame",
+    "legal_moves": 24,
+    "text_sample": "P: 8/1p2k1p1/p6p/P2Bp2P/2Rnp3/5P1K/1r4P1/2r5 w - - 0 46                                      M: f3e4..."
+  },
+  {
+    "fen": "8/p4p1k/6p1/1P5p/8/5r1P/PPR5/7K b - - 1 34",
+    "turn": "black",
+    "move_number": 34,
+    "phase": "endgame",
+    "legal_moves": 22,
+    "text_sample": "P: 8/p4p1k/6p1/1P5p/8/5r1P/PPR5/7K b - - 1 34                                                M: f3e3..."
+  },
+  {
+    "fen": "2r1r1k1/1Q3pp1/P1pb1nb1/q2p4/3P4/P1P2NPp/3NBP1P/R3R1K1 b - - 2 24",
+    "turn": "black",
+    "move_number": 24,
+    "phase": "middlegame",
+    "legal_moves": 48,
+    "text_sample": "P: 2r1r1k1/1Q3pp1/P1pb1nb1/q2p4/3P4/P1P2NPp/3NBP1P/R3R1K1 b - - 2 24                         M: a5c3..."
+  },
+  {
+    "fen": "r1bq1r2/ppp3bk/3p3p/2nPp3/2P1p2N/4B1PP/PP2BP2/R2QK2R w KQ - 2 17",
+    "turn": "white",
+    "move_number": 17,
+    "phase": "opening",
+    "legal_moves": 39,
+    "text_sample": "P: r1bq1r2/ppp3bk/3p3p/2nPp3/2P1p2N/4B1PP/PP2BP2/R2QK2R w KQ - 2 17                          M: d1c2..."
+  },
+  {
+    "fen": "8/7k/6R1/4PP2/1PP3p1/5r2/PK5n/8 w - - 3 53",
+    "turn": "white",
+    "move_number": 53,
+    "phase": "endgame",
+    "legal_moves": 21,
+    "text_sample": "P: 8/7k/6R1/4PP2/1PP3p1/5r2/PK5n/8 w - - 3 53                                                M: e5e6..."
+  },
+  {
+    "fen": "2r2rk1/1bqn1ppp/4p3/1pp1b3/4P3/1P1P2P1/1BQNBP1P/R1R3K1 w - - 4 19",
+    "turn": "white",
+    "move_number": 19,
+    "phase": "middlegame",
+    "legal_moves": 40,
+    "text_sample": "P: 2r2rk1/1bqn1ppp/4p3/1pp1b3/4P3/1P1P2P1/1BQNBP1P/R1R3K1 w - - 4 19                         M: c1b1..."
+  },
+  {
+    "fen": "5rk1/p4pp1/1pprb1p1/2p5/4P2q/3P1Q2/PPP1N1PP/4RRK1 b - - 1 16",
+    "turn": "black",
+    "move_number": 16,
+    "phase": "middlegame",
+    "legal_moves": 44,
+    "text_sample": "P: 5rk1/p4pp1/1pprb1p1/2p5/4P2q/3P1Q2/PPP1N1PP/4RRK1 b - - 1 16                              M: d6d7..."
+  },
+  {
+    "fen": "8/1p1Rrpk1/4p1p1/p1r1P2p/2P1K2P/1P4P1/P4P2/3R4 b - - 1 31",
+    "turn": "black",
+    "move_number": 31,
+    "phase": "middlegame",
+    "legal_moves": 20,
+    "text_sample": "P: 8/1p1Rrpk1/4p1p1/p1r1P2p/2P1K2P/1P4P1/P4P2/3R4 b - - 1 31                                 M: c5c7..."
+  },
+  {
+    "fen": "1r4k1/pq2bpp1/Q3p2p/P2nP3/1pRP3P/5NP1/1P1B1PK1/8 w - - 3 25",
+    "turn": "white",
+    "move_number": 25,
+    "phase": "middlegame",
+    "legal_moves": 35,
+    "text_sample": "P: 1r4k1/pq2bpp1/Q3p2p/P2nP3/1pRP3P/5NP1/1P1B1PK1/8 w - - 3 25                               M: a6b7..."
+  },
+  {
+    "fen": "2r1k2r/1bqnppb1/p2p2pp/2pPn3/1p2PBPP/2P2P1N/PP1QN1B1/2KR3R w k - 0 16",
+    "turn": "white",
+    "move_number": 16,
+    "phase": "opening",
+    "legal_moves": 34,
+    "text_sample": "P: 2r1k2r/1bqnppb1/p2p2pp/2pPn3/1p2PBPP/2P2P1N/PP1QN1B1/2KR3R w k - 0 16                     M: h3f2..."
+  },
+  {
+    "fen": "r5k1/pp3p2/3r1n1p/1B3bp1/4PN2/P4P2/1P4PP/2R1K2R w K g6 0 22",
+    "turn": "white",
+    "move_number": 22,
+    "phase": "middlegame",
+    "legal_moves": 41,
+    "text_sample": "P: r5k1/pp3p2/3r1n1p/1B3bp1/4PN2/P4P2/1P4PP/2R1K2R w K g6 0 22                               M: e1g1..."
+  },
+  {
+    "fen": "r4rk1/ppp3pp/2n5/2b1pb2/5P1q/2PP2NP/P1P3BK/R1BQ1R2 b - f3 0 15",
+    "turn": "black",
+    "move_number": 15,
+    "phase": "middlegame",
+    "legal_moves": 55,
+    "text_sample": "P: r4rk1/ppp3pp/2n5/2b1pb2/5P1q/2PP2NP/P1P3BK/R1BQ1R2 b - f3 0 15                            M: a8d8..."
+  },
+  {
+    "fen": "3r4/2B1N2p/p6n/P2P1ppk/8/2pB2PP/2P2PK1/8 b - - 1 32",
+    "turn": "black",
+    "move_number": 32,
+    "phase": "middlegame",
+    "legal_moves": 15,
+    "text_sample": "P: 3r4/2B1N2p/p6n/P2P1ppk/8/2pB2PP/2P2PK1/8 b - - 1 32                                       M: d8f8..."
+  },
+  {
+    "fen": "r3k1nr/pp3p2/2npb1pp/2p1p3/2B1P3/1PNPB3/P1P2PPP/R3K2R b KQkq - 3 11",
+    "turn": "black",
+    "move_number": 11,
+    "phase": "opening",
+    "legal_moves": 33,
+    "text_sample": "P: r3k1nr/pp3p2/2npb1pp/2p1p3/2B1P3/1PNPB3/P1P2PPP/R3K2R b KQkq - 3 11                       M: b7b6..."
+  },
+  {
+    "fen": "r1b1kb1r/ppqn1ppp/2n1p3/4P3/B2p4/N4N2/PP1P1PPP/R1BQK2R w KQkq - 0 10",
+    "turn": "white",
+    "move_number": 10,
+    "phase": "opening",
+    "legal_moves": 28,
+    "text_sample": "P: r1b1kb1r/ppqn1ppp/2n1p3/4P3/B2p4/N4N2/PP1P1PPP/R1BQK2R w KQkq - 0 10                      M: d1c2..."
+  },
+  {
+    "fen": "3k2b1/6Pp/5p2/4pP1B/1p2P3/1P1K4/2P5/8 b - - 2 36",
+    "turn": "black",
+    "move_number": 36,
+    "phase": "endgame",
+    "legal_moves": 10,
+    "text_sample": "P: 3k2b1/6Pp/5p2/4pP1B/1p2P3/1P1K4/2P5/8 b - - 2 36                                          M: d8d7..."
+  },
+  {
+    "fen": "5rk1/pp3rpp/2p5/3p4/3P1PR1/2P2P2/P1PK3P/6R1 b - - 3 25",
+    "turn": "black",
+    "move_number": 25,
+    "phase": "middlegame",
+    "legal_moves": 21,
+    "text_sample": "P: 5rk1/pp3rpp/2p5/3p4/3P1PR1/2P2P2/P1PK3P/6R1 b - - 3 25                                    M: g7g6..."
+  },
+  {
+    "fen": "rnbqk2r/ppp1ppbp/1n1P2p1/8/2PP4/2N2N2/PP3PPP/R1BQKB1R b KQkq - 0 7",
+    "turn": "black",
+    "move_number": 7,
+    "phase": "opening",
+    "legal_moves": 37,
+    "text_sample": "P: rnbqk2r/ppp1ppbp/1n1P2p1/8/2PP4/2N2N2/PP3PPP/R1BQKB1R b KQkq - 0 7                        M: c7d6..."
+  },
+  {
+    "fen": "2kr4/ppp4p/2n5/2P1pb2/6p1/4P3/PB3N2/R3N1K1 w - - 0 28",
+    "turn": "white",
+    "move_number": 28,
+    "phase": "middlegame",
+    "legal_moves": 25,
+    "text_sample": "P: 2kr4/ppp4p/2n5/2P1pb2/6p1/4P3/PB3N2/R3N1K1 w - - 0 28                                     M: a1d1..."
+  },
+  {
+    "fen": "r2qkb1r/pp1npp1p/2p1b1p1/3pP3/5PP1/4P2P/PPPN2B1/R1BQK2R b KQkq f3 0 10",
+    "turn": "black",
+    "move_number": 10,
+    "phase": "opening",
+    "legal_moves": 28,
+    "text_sample": "P: r2qkb1r/pp1npp1p/2p1b1p1/3pP3/5PP1/4P2P/PPPN2B1/R1BQK2R b KQkq f3 0 10                    M: h7h5..."
+  },
+  {
+    "fen": "7R/1p2k3/p1b5/8/1P6/2Bp1PK1/6P1/1r6 b - - 5 41",
+    "turn": "black",
+    "move_number": 41,
+    "phase": "endgame",
+    "legal_moves": 25,
+    "text_sample": "P: 7R/1p2k3/p1b5/8/1P6/2Bp1PK1/6P1/1r6 b - - 5 41                                            M: a6a5..."
+  },
+  {
+    "fen": "r2qrbk1/pp3p1p/2b1pnp1/P2p4/2nP4/1QN1PNP1/1P3PBP/R1B2RK1 w - - 7 18",
+    "turn": "white",
+    "move_number": 18,
+    "phase": "opening",
+    "legal_moves": 38,
+    "text_sample": "P: r2qrbk1/pp3p1p/2b1pnp1/P2p4/2nP4/1QN1PNP1/1P3PBP/R1B2RK1 w - - 7 18                       M: f1d1..."
+  },
+  {
+    "fen": "r2q1rk1/p2n1ppb/2p1p1np/4P3/2P1N3/5NPP/PB3P2/3RQBK1 b - - 2 20",
+    "turn": "black",
+    "move_number": 20,
+    "phase": "middlegame",
+    "legal_moves": 30,
+    "text_sample": "P: r2q1rk1/p2n1ppb/2p1p1np/4P3/2P1N3/5NPP/PB3P2/3RQBK1 b - - 2 20                            M: d8c8..."
+  },
+  {
+    "fen": "8/R7/5pk1/p4p1p/6nP/2P3P1/1P4K1/8 b - - 3 64",
+    "turn": "black",
+    "move_number": 64,
+    "phase": "endgame",
+    "legal_moves": 8,
+    "text_sample": "P: 8/R7/5pk1/p4p1p/6nP/2P3P1/1P4K1/8 b - - 3 64                                              M: f5f4..."
+  },
+  {
+    "fen": "rnb1nrk1/ppp1q1bp/3p4/3Ppp2/2P2P2/2N1B1N1/PP1QB1PP/R4RK1 b - - 3 13",
+    "turn": "black",
+    "move_number": 13,
+    "phase": "opening",
+    "legal_moves": 30,
+    "text_sample": "P: rnb1nrk1/ppp1q1bp/3p4/3Ppp2/2P2P2/2N1B1N1/PP1QB1PP/R4RK1 b - - 3 13                       M: b8d7..."
+  },
+  {
+    "fen": "3r1n2/4q1k1/pp5p/2p3p1/P1P5/6PP/1P3P2/4RBK1 w - - 0 31",
+    "turn": "white",
+    "move_number": 31,
+    "phase": "middlegame",
+    "legal_moves": 23,
+    "text_sample": "P: 3r1n2/4q1k1/pp5p/2p3p1/P1P5/6PP/1P3P2/4RBK1 w - - 0 31                                    M: e1e3..."
+  },
+  {
+    "fen": "r2r2k1/1pq1npbp/p1pp2p1/2n5/2PN2b1/BPN1P1P1/P2Q1PBP/2RR2K1 w - - 4 15",
+    "turn": "white",
+    "move_number": 15,
+    "phase": "opening",
+    "legal_moves": 41,
+    "text_sample": "P: r2r2k1/1pq1npbp/p1pp2p1/2n5/2PN2b1/BPN1P1P1/P2Q1PBP/2RR2K1 w - - 4 15                     M: c3e2..."
+  },
+  {
+    "fen": "4rrk1/pp1q2pp/2n1p3/3pb3/3P3P/2BR4/PP2QPP1/4R1K1 w - - 0 20",
+    "turn": "white",
+    "move_number": 20,
+    "phase": "middlegame",
+    "legal_moves": 36,
+    "text_sample": "P: 4rrk1/pp1q2pp/2n1p3/3pb3/3P3P/2BR4/PP2QPP1/4R1K1 w - - 0 20                               M: d3h3..."
+  },
+  {
+    "fen": "r3k1nr/pp1n1p1p/6p1/2p1p3/2P1PP2/2P1B3/P3B1PP/R2R2K1 b kq f3 0 14",
+    "turn": "black",
+    "move_number": 14,
+    "phase": "middlegame",
+    "legal_moves": 24,
+    "text_sample": "P: r3k1nr/pp1n1p1p/6p1/2p1p3/2P1PP2/2P1B3/P3B1PP/R2R2K1 b kq f3 0 14                         M: g8f6..."
+  },
+  {
+    "fen": "4rrk1/1p1bq1bp/2p2n2/p1n1pp2/2PP4/2N1B1PP/PP1QN1BK/4RR2 b - - 0 17",
+    "turn": "black",
+    "move_number": 17,
+    "phase": "opening",
+    "legal_moves": 33,
+    "text_sample": "P: 4rrk1/1p1bq1bp/2p2n2/p1n1pp2/2PP4/2N1B1PP/PP1QN1BK/4RR2 b - - 0 17                        M: f5f4..."
+  }
+]

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ROOK-CLF-9m — Interactive Chess Analysis</title>
+    
+    <!-- jQuery (required by chessboard.js) -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    
+    <!-- Chessboard CSS -->
+    <link rel="stylesheet" href="./node_modules/@chrisoakman/chessboardjs/dist/chessboard-1.0.0.min.css" />
+    
+    <!-- Our styles -->
+    <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Import map for ES modules -->
+    <script type="importmap">
+      {
+        "imports": {
+          "onnxruntime-web": "./node_modules/onnxruntime-web/dist/ort.all.bundle.min.mjs",
+          "chess.js": "./node_modules/chess.js/dist/esm/chess.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">Jonathan Rahn</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">About</a>
+                <a href="/research/" class="nav-link active">Research</a>
+                <a href="/blog/" class="nav-link">Blog</a>
+                <a href="https://github.com/jorahn" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://huggingface.co/jrahn" class="nav-link" target="_blank">HuggingFace</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>ROOK-CLF-9M Chess Analysis</h1>
+          <p class="subtitle">Strategic reasoning through language models • <a href="https://github.com/google-deepmind/searchless_chess" target="_blank" class="metric-link">49% best move top-1 (GDM)</a> • <a href="https://github.com/google/BIG-bench" target="_blank" class="metric-link">57% checkmate-in-one</a> • 9M parameter LLaMA • Trained on <a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank" class="dataset-link">40M chess games</a></p>
+          <p class="research-context">
+            <a href="https://github.com/jorahn" target="_blank" class="author-link"><strong>Jonathan Rahn</strong></a> • 
+            Jenia Jitsev • Qi Sun • 
+            <em>LAION Research Project</em>
+          </p>
+        </div>
+        <div class="header-badges">
+          <a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank" class="badge hf-badge">
+            🤗 HuggingFace
+          </a>
+          <a href="https://github.com/jorahn/rook" target="_blank" class="badge github-badge">
+            🔗 GitHub
+          </a>
+          <a href="https://laion.ai/notes/rook" target="_blank" class="badge research-badge">
+            📄 Research
+          </a>
+        </div>
+      </div>
+    </header>
+    
+    <main class="app-container">
+      <!-- Left Panel: Chess Board -->
+      <div class="board-panel">
+        <div class="board-container">
+          <div class="autoplay-control">
+            <label class="toggle-switch">
+              <input type="checkbox" id="autoplay-toggle" checked>
+              <span class="toggle-slider"></span>
+              <span class="toggle-label">Autoplay</span>
+            </label>
+          </div>
+          <div id="board"></div>
+        </div>
+        
+        <div class="controls">
+          <div class="fen-input-row">
+            <input type="text" id="fen-input" placeholder="Enter FEN string..." />
+          </div>
+          
+          <div class="button-group">
+            <button id="randomize-btn" class="position-btn">Set Random Position</button>
+            <button id="start-pos-btn" class="position-btn">Set Starting Position</button>
+            <button id="load-fen-btn" class="position-btn">Set FEN</button>
+          </div>
+          
+          <div class="current-fen">
+            <label>Current FEN:</label>
+            <code id="current-fen">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- Right Panel: Analysis Results -->
+      <div class="analysis-panel">
+        <div class="panel-header">
+          <h2>Analysis Results</h2>
+          <span id="status" class="status"></span>
+        </div>
+        
+        <div id="top-moves" class="top-moves">
+          <h3>Top Predicted Moves <small>(click to play)</small></h3>
+          <div id="moves-list" class="moves-list">
+            <p class="placeholder">Loading model...</p>
+          </div>
+        </div>
+        
+        
+        <div class="model-info">
+          <h4>Model Information</h4>
+          <ul>
+            <li>Architecture: LlamaForSequenceClassification</li>
+            <li>Parameters: <span id="num-params">9M</span></li>
+            <li>Classes: <span id="num-classes">1968</span> chess moves</li>
+            <li>Input: <span class="tooltip-trigger" data-tooltip="Custom processed FEN format">Customized FEN notation</span> <button id="tokenization-info-btn" class="info-btn">ℹ</button></li>
+            <li>Runtime: ONNX WebAssembly</li>
+          </ul>
+        </div>
+        
+        <!-- Tokenization Info Modal -->
+        <div id="tokenization-modal" class="modal hidden">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>FEN Tokenization Process</h3>
+              <button id="close-modal" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+              <h4>Motivation</h4>
+              <p>The ROOK-CLF model employs a custom FEN tokenization strategy to create <strong>constant-length positional representations</strong>. This design enables the transformer to learn consistent positional patterns and attend to the same board squares reliably, rather than dealing with variable-length sequences that would shift attention positions based on move counts or position complexity.</p>
+              
+              <p>Standard FEN notation has variable components (e.g., castling rights "KQkq" vs "Kq" vs "-") that create inconsistent sequence lengths. Our approach normalizes all positions to exactly <strong>77 characters + [CLS] token = 78 tokens</strong>, ensuring each board square maps to the same token position across all games.</p>
+              
+              <h4>Processing Steps:</h4>
+              <ol>
+                <li><strong>Expand numbers:</strong> <code>8 → ........</code> (empty squares become dots)</li>
+                <li><strong>Remove slashes:</strong> <code>rnbqkbnr/pppppppp → rnbqkbnrpppppppp</code></li>
+                <li><strong>Pad components:</strong> Fixed-width fields for metadata</li>
+                <li><strong>Add [CLS] token:</strong> Classification indicator at end</li>
+              </ol>
+              
+              <h4>Example Transformation:</h4>
+              <div class="code-block">
+                <strong>Original:</strong><br>
+                <code>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+                <br><br>
+                <strong>Processed:</strong><br>
+                <code>rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNRwKQkq-.0..1..[CLS]</code>
+              </div>
+              
+              <h4>Benefits of Fixed-Length Encoding:</h4>
+              <ul>
+                <li><strong>Positional consistency:</strong> Square a1 is always at token position 0, h8 always at position 63</li>
+                <li><strong>Attention stability:</strong> Self-attention can focus on specific board regions consistently</li>
+                <li><strong>Batch processing:</strong> All positions have identical tensor shapes for efficient GPU computation</li>
+                <li><strong>Pattern learning:</strong> Model can learn piece interactions at fixed relative distances</li>
+              </ul>
+              
+              <h4>Token Details:</h4>
+              <ul>
+                <li><strong>Vocabulary:</strong> 36 tokens (12 pieces + 8 files + 8 ranks + 8 metadata)</li>
+                <li><strong>Sequence length:</strong> Fixed 78 tokens (64 board + 13 metadata + [CLS])</li>
+                <li><strong>Board encoding:</strong> Ranks 8→1, files a→h, no positional ambiguity</li>
+                <li><strong>Special tokens:</strong> [CLS] (classification), [SEP], [PAD], [MASK]</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Load chessboard.js -->
+    <script src="./node_modules/@chrisoakman/chessboardjs/dist/chessboard-1.0.0.min.js"></script>
+    
+    <!-- Our application -->
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

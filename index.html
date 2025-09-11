@@ -1,5 +1,174 @@
-<html>
-<script>
-window.location.replace("https://jorahn.github.io/blog/");
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan Rahn - AI Research & Engineering</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">Jonathan Rahn</a>
+            <div class="nav-links">
+                <a href="/" class="nav-link active">About</a>
+                <a href="/research/" class="nav-link">Research</a>
+                <a href="/blog/" class="nav-link">Blog</a>
+                <a href="https://github.com/jorahn" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://huggingface.co/jrahn" class="nav-link" target="_blank">HuggingFace</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-text">
+                <h1>Chess AI Through Language Models: Strategic Reasoning Without Search</h1>
+                <p class="subtitle">AI Lab Lead, Drees & Sommer</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <h2>Research Overview</h2>
+            <p>This work explores transformer-based strategic reasoning through chess as a testbed, demonstrating that language models can develop sophisticated game-playing capabilities without traditional search algorithms. In collaboration with <a href="https://laion.ai/notes/room" target="_blank">LAION</a>, we've developed a progression of models that challenge fundamental assumptions about how AI systems learn strategic thinking.</p>
+            
+            <div class="highlight-box">
+                <p><strong>Core hypothesis:</strong> Complex strategic reasoning can emerge from next-token prediction when models are trained on appropriately structured strategic data.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>The ROOK Project Evolution</h2>
+            
+            <div class="project-card">
+                <h3>RookWorld-RLVR <span class="badge">Current</span></h3>
+                <p>Active development integrating Reinforcement Learning with Verifiable Rewards (GRPO) for enhanced reasoning capabilities.</p>
+                <div class="project-links">
+                    <a href="https://github.com/jorahn/rookworld-trl" target="_blank" class="project-link">Repo Transformers & TRL</a>
+                    <a href="https://github.com/jorahn/rookworld-rlvr" target="_blank" class="project-link">Repo PyTorch</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>RookWorld-LM (124M params) - Unified Agent+Environment</h3>
+                <p><strong>Key breakthrough:</strong> Unified chess policy and world model in a single transformer architecture.<br>
+                Post: <a href="https://laion.ai/notes/rook/" target="_blank">ROOK: REASONING OVER ORGANIZED KNOWLEDGE</a></p>
+                
+                <div class="collaboration">
+                    <strong>Collaboration:</strong> <a href="https://scholar.google.com/citations?user=p1FuAMkAAAAJ&hl=en" target="_blank">Jenia Jitsev</a> (LAION/JSC), <a href="https://scholar.google.com/citations?user=rv0MJuAAAAAJ&hl=en" target="_blank">Qi Sun</a> (Tokyo Tech/Sakana AI)
+                </div>
+                
+                <div class="metrics">
+                    <h4>Multi-task Performance:</h4>
+                    <ul>
+                        <li>32.1% Checkmate-in-One accuracy (vs ChessGPT-Base 26.5%)</li>
+                        <li>99.9% environment simulation accuracy</li>
+                        <li>26.2% overall action accuracy</li>
+                    </ul>
+                </div>
+                
+                <div class="project-links">
+                    <a href="https://huggingface.co/jrahn/RookWorld-LM-124M" target="_blank" class="project-link">Model</a>
+                    <a href="https://huggingface.co/datasets/jrahn/rookworld_7m" target="_blank" class="project-link">Dataset</a>
+                    <a href="https://huggingface.co/spaces/jrahn/rookworld" target="_blank" class="project-link">Interactive Demo</a>
+                </div>
+                
+                <p class="significance"><strong>Significance:</strong> Enables closed-loop self-play without external engines</p>
+            </div>
+
+            <div class="project-card">
+                <h3>ROOK-LM (124M params) - Chain-of-Thought Integration</h3>
+                <p>Implementation of Chain-of-Thought reasoning for chess, incorporating position analysis → candidate evaluation → move selection.</p>
+                
+                <ul>
+                    <li><strong>Dataset:</strong> <a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank">rook_40m</a> (6B tokens, generated on Tsubame 4.0)</li>
+                    <li><strong>Architecture:</strong> GPT-2 with custom chess tokenization</li>
+                    <li><strong>Performance:</strong> 22.2% action accuracy with comprehensive reasoning traces</li>
+                    <li><strong>Technical Details:</strong> <a href="https://laion.ai/notes/rook/" target="_blank">LAION Research Note</a></li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <h3>ROOK-CLF (9M params) - Classification Approach</h3>
+                <p>Reproduction of Google DeepMind's <a href="https://arxiv.org/abs/2402.04494" target="_blank">"Grandmaster-Level Chess Without Search"</a> methodology using LLaMA-based decoder.</p>
+                
+                <ul>
+                    <li><strong>Performance:</strong> 49% action accuracy, 57% on Checkmate-in-One</li>
+                    <li><strong>Achievement:</strong> Demonstrated searchless chess AI feasibility with minimal parameters</li>
+                    <li><strong>Model:</strong> <a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank">Available on HuggingFace</a></li>
+                </ul>
+                
+                <div class="demo-link">
+                    <a href="/research/rook-clf-demo/" class="btn-primary">Try Interactive Demo</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>YoloChess (2022) - Foundation Work</h3>
+                <p>Initial exploration using BERT-based position evaluation with custom FEN encoders. Established baseline performance and identified key challenges in chess representation for transformer architectures.</p>
+                
+                <ul>
+                    <li><strong>Dataset:</strong> <a href="https://huggingface.co/datasets/jrahn/yolochess_lichess-elite_2211" target="_blank">yolochess_lichess-elite_2211</a></li>
+                    <li><strong>Architecture:</strong> DeBERTa v2 with FEN tokenization</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Technical Contributions</h2>
+            
+            <div class="contribution-grid">
+                <div class="contribution">
+                    <h3>Novel Architectures</h3>
+                    <ul>
+                        <li>Unified world modeling: Simultaneous policy and environment simulation in transformers</li>
+                        <li>Strategic tokenization: Custom representations for structured game states</li>
+                        <li>Multi-task scaling: Consistent performance improvements with unified training objectives</li>
+                    </ul>
+                </div>
+                
+                <div class="contribution">
+                    <h3>Dataset Engineering</h3>
+                    <ul>
+                        <li>Large-scale annotation: 40M+ positions annotated with Stockfish 16.1 on supercomputing infrastructure</li>
+                        <li>Multi-format datasets: Support for classification, autoregressive, and multi-task learning</li>
+                        <li>Reproducible pipelines: Full data generation code and methodology documentation</li>
+                    </ul>
+                </div>
+                
+                <div class="contribution">
+                    <h3>Open Science Impact</h3>
+                    <p>All models, datasets, and code publicly available. Contributing to democratization of strategic AI research.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Research Context</h2>
+            <p>Background spans neuro-informatics (University of Lübeck), games industry applications, business economics & management (Witten/Herdecke University, IPADE Mexico DF), and AI/ML consulting. Active contributor to HuggingFace ecosystem (transformers, datasets, evaluate) and open source frameworks including keras-rl and custom implementations like keras-wide-n-deep. Current work at Drees & Sommer, building the AI Lab & exploring applications in construction and real estate optimization.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Research Implications</h2>
+            <p>The RookWorld results suggest that:</p>
+            
+            <ol class="implications-list">
+                <li><strong>Search-free strategic AI</strong> is viable with appropriate training data</li>
+                <li><strong>Unified architectures</strong> can efficiently handle multiple strategic reasoning tasks</li>
+                <li><strong>Chain-of-thought training</strong> improves both performance and interpretability</li>
+                <li><strong>Language model paradigms</strong> apply effectively to structured strategic domains</li>
+            </ol>
+            
+            <p>These findings have implications beyond chess for any domain requiring sequential decision-making under complex constraints.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Jonathan Rahn. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>
