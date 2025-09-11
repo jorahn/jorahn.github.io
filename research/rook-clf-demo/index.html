@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ROOK-CLF-9m — Interactive Chess Analysis</title>
+    <link rel="icon" type="image/jpeg" href="/avatar.jpg">
     
     <!-- jQuery (required by chessboard.js) -->
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
@@ -27,8 +28,16 @@
   <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="nav-brand">Jonathan Rahn</a>
-            <div class="nav-links">
+            <a href="/" class="nav-brand">
+                <img src="/avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
+                <span>Jonathan Rahn</span>
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
                 <a href="/" class="nav-link">About</a>
                 <a href="/research/" class="nav-link active">Research</a>
                 <a href="/blog/" class="nav-link">Blog</a>
@@ -190,5 +199,21 @@
     
     <!-- Our application -->
     <script type="module" src="app.js"></script>
+    
+    <script>
+        // Mobile navigation toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navToggle').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
   </body>
 </html>
