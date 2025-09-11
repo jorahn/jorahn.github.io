@@ -295,16 +295,17 @@ main {
 .btn-primary {
   display: inline-block;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #000000;
+  color: #000000 !important;
   padding: 12px 30px;
   border-radius: 8px;
-  text-decoration: none;
+  text-decoration: none !important;
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(93, 212, 157, 0.3);
 }
 
 .btn-primary:hover {
+  color: #000000 !important;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(93, 212, 157, 0.4);
 }
