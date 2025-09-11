@@ -3,8 +3,8 @@ import { Chess } from 'chess.js';
 import { getPieceDataUrl } from './chess-pieces.js';
 
 // Configure ONNX Runtime immediately  
-// Set WASM paths - use local libs folder for reliability
-ort.env.wasm.wasmPaths = './libs/';
+// Set WASM paths - use absolute path to libs folder
+ort.env.wasm.wasmPaths = '/research/rook-clf-demo/libs/';
 ort.env.wasm.numThreads = 1;
 
 // Model caching using IndexedDB
