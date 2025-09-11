@@ -3,8 +3,8 @@ import { Chess } from 'chess.js';
 import { getPieceDataUrl } from './chess-pieces.js';
 
 // Configure ONNX Runtime immediately  
-// Set WASM paths - using root path since runtime prepends its own path
-ort.env.wasm.wasmPaths = '/node_modules/onnxruntime-web/dist/';
+// Set WASM paths - use local libs folder for reliability
+ort.env.wasm.wasmPaths = './libs/';
 ort.env.wasm.numThreads = 1;
 
 // Model caching using IndexedDB
