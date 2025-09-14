@@ -9,8 +9,16 @@
 <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="nav-brand">Jonathan Rahn</a>
-            <div class="nav-links">
+            <a href="/" class="nav-brand">
+                <img src="../avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
+                <span>Jonathan Rahn</span>
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
                 <a href="/" class="nav-link">About</a>
                 <a href="/research/" class="nav-link active">Research</a>
                 <a href="/blog/" class="nav-link">Blog</a>
@@ -34,21 +42,31 @@
             <h2>Interactive Demos</h2>
             
             <div class="project-card">
-                <h3>ROOK-CLF-9M Interactive Chess Analysis</h3>
-                <p>Explore how a 9M parameter language model achieves strategic chess reasoning without search. This interactive demo allows you to analyze any chess position and see the model's move predictions and confidence scores.</p>
+                <h3>ROOK-CLF-9M Multi-Component Analysis Platform</h3>
+                <p>Comprehensive evaluation platform for the 9M parameter chess language model featuring interactive analysis, professional benchmarking, and attention visualization. Explore strategic reasoning capabilities through three specialized interfaces.</p>
                 
                 <div class="metrics">
-                    <h4>Key Achievements:</h4>
+                    <h4>Platform Features:</h4>
                     <ul>
-                        <li>49% best move accuracy (Google DeepMind benchmark)</li>
-                        <li>57% checkmate-in-one accuracy</li>
-                        <li>Searchless strategic reasoning</li>
-                        <li>Real-time browser inference</li>
+                        <li><strong>Selfplay:</strong> Interactive chess board with real-time move analysis and autoplay</li>
+                        <li><strong>Benchmark:</strong> Professional evaluation against research datasets (GDM, Big-Bench, Lichess)</li>
+                        <li><strong>Interpretability:</strong> Attention rollout heatmaps and early logit lens visualization</li>
+                        <li><strong>Performance:</strong> WebGPU acceleration with IndexedDB model caching</li>
+                    </ul>
+                </div>
+
+                <div class="metrics">
+                    <h4>Research Benchmarks:</h4>
+                    <ul>
+                        <li>49% puzzle solve rate (GDM Searchless benchmark)</li>
+                        <li>57% checkmate-in-one accuracy (Big-Bench)</li>
+                        <li>Real-time evaluation with performance metrics</li>
+                        <li>Authentic research methodologies and datasets</li>
                     </ul>
                 </div>
                 
                 <div class="demo-link">
-                    <a href="/research/rook-clf-demo/" class="btn-primary">Launch Demo</a>
+                    <a href="/research/rook-clf-demo/" class="btn-primary">Launch Platform</a>
                 </div>
             </div>
 
@@ -126,5 +144,21 @@
             <p>&copy; 2024 Jonathan Rahn. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Mobile navigation toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navToggle').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>

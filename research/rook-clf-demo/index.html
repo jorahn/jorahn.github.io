@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ROOK-CLF-9m — Interactive Chess Analysis</title>
-    <link rel="icon" type="image/jpeg" href="/avatar.jpg">
+    <link rel="icon" type="image/jpeg" href="../../avatar.jpg">
     
     <!-- jQuery (required by chessboard.js) -->
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
@@ -28,8 +28,8 @@
   <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="nav-brand">
-                <img src="/avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
+            <a href="../../" class="nav-brand">
+                <img src="../../avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
                 <span>Jonathan Rahn</span>
             </a>
             <button class="nav-toggle" id="navToggle">
@@ -38,9 +38,9 @@
                 <span></span>
             </button>
             <div class="nav-links" id="navLinks">
-                <a href="/" class="nav-link">About</a>
-                <a href="/research/" class="nav-link active">Research</a>
-                <a href="/blog/" class="nav-link">Blog</a>
+                <a href="../../" class="nav-link">About</a>
+                <a href="../" class="nav-link active">Research</a>
+                <a href="../../blog/" class="nav-link">Blog</a>
                 <a href="https://github.com/jorahn" class="nav-link" target="_blank">GitHub</a>
                 <a href="https://huggingface.co/jrahn" class="nav-link" target="_blank">HuggingFace</a>
             </div>
@@ -50,7 +50,7 @@
       <div class="header-content">
         <div class="header-text">
           <h1>ROOK-CLF-9M Chess Analysis</h1>
-          <p class="subtitle">Strategic reasoning through language models • <a href="https://github.com/google-deepmind/searchless_chess" target="_blank" class="metric-link">49% best move top-1 (GDM)</a> • <a href="https://github.com/google/BIG-bench" target="_blank" class="metric-link">57% checkmate-in-one</a> • 9M parameter LLaMA • Trained on <a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank" class="dataset-link">40M chess games</a></p>
+          <p class="subtitle">Strategic reasoning through language models • <a href="https://github.com/google-deepmind/searchless_chess" target="_blank" class="metric-link">49% puzzle solve rate (GDM Searchless)</a> • <a href="https://github.com/google/BIG-bench" target="_blank" class="metric-link">57% checkmate-in-one (BIG-bench)</a> • 9M parameter LLaMA • Trained on <a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank" class="dataset-link">40M chess games</a></p>
           <p class="research-context">
             <a href="https://github.com/jorahn" target="_blank" class="author-link"><strong>Jonathan Rahn</strong></a> • 
             Jenia Jitsev • Qi Sun • 
@@ -71,6 +71,27 @@
       </div>
     </header>
     
+    <!-- Component Navigation -->
+    <nav class="component-nav">
+      <div class="component-nav-container">
+        <div class="component-tabs">
+          <button class="component-tab active" data-component="selfplay">
+            <span class="tab-icon">♟️</span>
+            <span class="tab-text">Selfplay</span>
+          </button>
+          <button class="component-tab" data-component="benchmark">
+            <span class="tab-icon">📊</span>
+            <span class="tab-text">Benchmark</span>
+          </button>
+          <button class="component-tab" data-component="interpretability">
+            <span class="tab-icon">🧠</span>
+            <span class="tab-text">Interpretability</span>
+            <span class="tab-badge">🚧</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="loading-overlay">
       <div class="loading-content">
@@ -85,110 +106,317 @@
     </div>
     
     <main class="app-container">
-      <!-- Left Panel: Chess Board -->
-      <div class="board-panel">
-        <div class="board-container">
-          <div class="autoplay-control">
-            <label class="toggle-switch">
-              <input type="checkbox" id="autoplay-toggle" checked>
-              <span class="toggle-slider"></span>
-              <span class="toggle-label">Autoplay</span>
-            </label>
+      <!-- Selfplay Component -->
+      <div id="selfplay-component" class="component-container active">
+        <!-- Left Panel: Chess Board -->
+        <div class="board-panel">
+          <div class="board-container">
+            <div class="autoplay-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="autoplay-toggle" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Autoplay</span>
+              </label>
+            </div>
+            <div id="board"></div>
           </div>
-          <div id="board"></div>
+          
+          <div class="controls">
+            <div class="fen-input-row">
+              <input type="text" id="fen-input" placeholder="Enter FEN string..." />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-btn" class="position-btn">Set Random Position</button>
+              <button id="start-pos-btn" class="position-btn">Set Starting Position</button>
+              <button id="load-fen-btn" class="position-btn">Set FEN</button>
+            </div>
+            
+            <div class="current-fen">
+              <label>Current FEN:</label>
+              <code id="current-fen">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+            </div>
+          </div>
         </div>
         
-        <div class="controls">
-          <div class="fen-input-row">
-            <input type="text" id="fen-input" placeholder="Enter FEN string..." />
+        <!-- Right Panel: Analysis Results -->
+        <div class="analysis-panel">
+          <div class="panel-header">
+            <h2>Analysis Results</h2>
+            <span id="status" class="status"></span>
           </div>
           
-          <div class="button-group">
-            <button id="randomize-btn" class="position-btn">Set Random Position</button>
-            <button id="start-pos-btn" class="position-btn">Set Starting Position</button>
-            <button id="load-fen-btn" class="position-btn">Set FEN</button>
+          <div id="top-moves" class="top-moves">
+            <h3>Top Predicted Moves <small>(click to play)</small></h3>
+            <div id="moves-list" class="moves-list">
+              <p class="placeholder">Loading model...</p>
+            </div>
           </div>
           
-          <div class="current-fen">
-            <label>Current FEN:</label>
-            <code id="current-fen">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+          <div class="model-info">
+            <h4>Model Information</h4>
+            <ul>
+              <li>Architecture: LlamaForSequenceClassification</li>
+              <li>Parameters: <span id="num-params">9M</span></li>
+              <li>Classes: <span id="num-classes">1968</span> chess moves</li>
+              <li>Input: <span class="tooltip-trigger" data-tooltip="Custom processed FEN format">Customized FEN notation</span> <button id="tokenization-info-btn" class="info-btn">ℹ</button></li>
+              <li>Runtime: <span id="execution-provider">ONNX WebAssembly</span></li>
+            </ul>
           </div>
           
+          <!-- Tokenization Info Modal -->
+          <div id="tokenization-modal" class="modal hidden">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>FEN Tokenization Process</h3>
+                <button id="close-modal" class="close-btn">×</button>
+              </div>
+              <div class="modal-body">
+                <h4>Motivation</h4>
+                <p>The ROOK-CLF model employs a custom FEN tokenization strategy to create <strong>constant-length positional representations</strong>. This design enables the transformer to learn consistent positional patterns and attend to the same board squares reliably, rather than dealing with variable-length sequences that would shift attention positions based on move counts or position complexity.</p>
+                
+                <p>Standard FEN notation has variable components (e.g., castling rights "KQkq" vs "Kq" vs "-") that create inconsistent sequence lengths. Our approach normalizes all positions to exactly <strong>77 characters + [CLS] token = 78 tokens</strong>, ensuring each board square maps to the same token position across all games.</p>
+                
+                <h4>Processing Steps:</h4>
+                <ol>
+                  <li><strong>Expand numbers:</strong> <code>8 → ........</code> (empty squares become dots)</li>
+                  <li><strong>Remove slashes:</strong> <code>rnbqkbnr/pppppppp → rnbqkbnrpppppppp</code></li>
+                  <li><strong>Pad components:</strong> Fixed-width fields for metadata</li>
+                  <li><strong>Add [CLS] token:</strong> Classification indicator at end</li>
+                </ol>
+                
+                <h4>Example Transformation:</h4>
+                <div class="code-block">
+                  <strong>Original:</strong><br>
+                  <code>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+                  <br><br>
+                  <strong>Processed:</strong><br>
+                  <code>rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNRwKQkq-.0..1..[CLS]</code>
+                </div>
+                
+                <h4>Benefits of Fixed-Length Encoding:</h4>
+                <ul>
+                  <li><strong>Positional consistency:</strong> Square a1 is always at token position 0, h8 always at position 63</li>
+                  <li><strong>Attention stability:</strong> Self-attention can focus on specific board regions consistently</li>
+                  <li><strong>Batch processing:</strong> All positions have identical tensor shapes for efficient GPU computation</li>
+                  <li><strong>Pattern learning:</strong> Model can learn piece interactions at fixed relative distances</li>
+                </ul>
+                
+                <h4>Token Details:</h4>
+                <ul>
+                  <li><strong>Vocabulary:</strong> 36 tokens (12 pieces + 8 files + 8 ranks + 8 metadata)</li>
+                  <li><strong>Sequence length:</strong> Fixed 78 tokens (64 board + 13 metadata + [CLS])</li>
+                  <li><strong>Board encoding:</strong> Ranks 8→1, files a→h, no positional ambiguity</li>
+                  <li><strong>Special tokens:</strong> [CLS] (classification), [SEP], [PAD], [MASK]</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <!-- Right Panel: Analysis Results -->
-      <div class="analysis-panel">
-        <div class="panel-header">
-          <h2>Analysis Results</h2>
-          <span id="status" class="status"></span>
-        </div>
-        
-        <div id="top-moves" class="top-moves">
-          <h3>Top Predicted Moves <small>(click to play)</small></h3>
-          <div id="moves-list" class="moves-list">
-            <p class="placeholder">Loading model...</p>
+
+      <!-- Benchmark Completion Modal -->
+      <div id="benchmark-complete-modal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 id="benchmark-modal-title">Benchmark Complete</h3>
+            <button class="close-btn" id="benchmark-modal-close">&times;</button>
+          </div>
+          <div class="modal-body" id="benchmark-modal-body">
+            <p class="placeholder">Summary will appear here…</p>
           </div>
         </div>
-        
-        
-        <div class="model-info">
-          <h4>Model Information</h4>
-          <ul>
-            <li>Architecture: LlamaForSequenceClassification</li>
-            <li>Parameters: <span id="num-params">9M</span></li>
-            <li>Classes: <span id="num-classes">1968</span> chess moves</li>
-            <li>Input: <span class="tooltip-trigger" data-tooltip="Custom processed FEN format">Customized FEN notation</span> <button id="tokenization-info-btn" class="info-btn">ℹ</button></li>
-            <li>Runtime: ONNX WebAssembly</li>
-          </ul>
-        </div>
-        
-        <!-- Tokenization Info Modal -->
-        <div id="tokenization-modal" class="modal hidden">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3>FEN Tokenization Process</h3>
-              <button id="close-modal" class="close-btn">×</button>
+      </div>
+
+      <!-- Benchmark Component -->
+      <div id="benchmark-component" class="component-container">
+        <div class="benchmark-content">
+          <div class="benchmark-header">
+            <h2>Research Benchmark Evaluation</h2>
+            <p class="benchmark-description">Evaluate ROOK-CLF-9M performance across established research benchmarks using authentic datasets and methodologies</p>
+          </div>
+          
+          <div class="benchmark-controls">
+            <div class="benchmark-selector">
+              <label for="benchmark-select">Benchmark:</label>
+              <select id="benchmark-select">
+                <option value="gdm_puzzle">GDM Puzzle Solve Rate (Reported: 50%)</option>
+                <option value="bigbench">Google BIG-bench Checkmate-in-One (Reported: 57%)</option>
+                <option value="lichess">Lichess Tactical Puzzles (Reported: 65%)</option>
+                <option value="gdm_action">🚧 GDM Action Accuracy (Reported: 49%)</option>
+              </select>
             </div>
-            <div class="modal-body">
-              <h4>Motivation</h4>
-              <p>The ROOK-CLF model employs a custom FEN tokenization strategy to create <strong>constant-length positional representations</strong>. This design enables the transformer to learn consistent positional patterns and attend to the same board squares reliably, rather than dealing with variable-length sequences that would shift attention positions based on move counts or position complexity.</p>
-              
-              <p>Standard FEN notation has variable components (e.g., castling rights "KQkq" vs "Kq" vs "-") that create inconsistent sequence lengths. Our approach normalizes all positions to exactly <strong>77 characters + [CLS] token = 78 tokens</strong>, ensuring each board square maps to the same token position across all games.</p>
-              
-              <h4>Processing Steps:</h4>
-              <ol>
-                <li><strong>Expand numbers:</strong> <code>8 → ........</code> (empty squares become dots)</li>
-                <li><strong>Remove slashes:</strong> <code>rnbqkbnr/pppppppp → rnbqkbnrpppppppp</code></li>
-                <li><strong>Pad components:</strong> Fixed-width fields for metadata</li>
-                <li><strong>Add [CLS] token:</strong> Classification indicator at end</li>
-              </ol>
-              
-              <h4>Example Transformation:</h4>
-              <div class="code-block">
-                <strong>Original:</strong><br>
-                <code>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
-                <br><br>
-                <strong>Processed:</strong><br>
-                <code>rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNRwKQkq-.0..1..[CLS]</code>
+            
+            <div class="benchmark-actions">
+              <button id="start-benchmark-btn" class="benchmark-btn primary">Start Benchmark</button>
+              <button id="pause-benchmark-btn" class="benchmark-btn secondary" disabled>Pause</button>
+              <button id="reset-benchmark-btn" class="benchmark-btn secondary">Reset</button>
+            </div>
+          </div>
+          
+          <div class="benchmark-main">
+            <div class="benchmark-left">
+              <div class="benchmark-visualization">
+                <h3 id="chart-title">Accuracy Over Time</h3>
+                <canvas id="accuracy-chart" width="800" height="300"></canvas>
+              </div>
+            </div>
+            
+            <div class="benchmark-right">
+              <div class="benchmark-metrics">
+                <div class="metric-card">
+                  <div class="metric-label">Performance</div>
+                  <div class="metric-value" id="current-accuracy">0.0%</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">Throughput</div>
+                  <div class="metric-value" id="positions-per-sec">0.0</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">Progress</div>
+                  <div class="metric-value" id="benchmark-progress">0 / 0</div>
+                </div>
+                <div class="metric-card">
+                  <div class="metric-label">ETA</div>
+                  <div class="metric-value" id="benchmark-eta">--:--</div>
+                </div>
               </div>
               
-              <h4>Benefits of Fixed-Length Encoding:</h4>
-              <ul>
-                <li><strong>Positional consistency:</strong> Square a1 is always at token position 0, h8 always at position 63</li>
-                <li><strong>Attention stability:</strong> Self-attention can focus on specific board regions consistently</li>
-                <li><strong>Batch processing:</strong> All positions have identical tensor shapes for efficient GPU computation</li>
-                <li><strong>Pattern learning:</strong> Model can learn piece interactions at fixed relative distances</li>
-              </ul>
+              <div class="benchmark-progress-bar">
+                <h4 style="margin: 0 0 8px 0; color: var(--text); font-size: 0.9rem;">Overall Progress</h4>
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" id="benchmark-progress-fill"></div>
+                </div>
+              </div>
               
-              <h4>Token Details:</h4>
-              <ul>
-                <li><strong>Vocabulary:</strong> 36 tokens (12 pieces + 8 files + 8 ranks + 8 metadata)</li>
-                <li><strong>Sequence length:</strong> Fixed 78 tokens (64 board + 13 metadata + [CLS])</li>
-                <li><strong>Board encoding:</strong> Ranks 8→1, files a→h, no positional ambiguity</li>
-                <li><strong>Special tokens:</strong> [CLS] (classification), [SEP], [PAD], [MASK]</li>
-              </ul>
+              <div class="benchmark-results">
+                <div class="results-header">
+                  <h3>Recent Results</h3>
+                </div>
+                <div class="results-table" id="results-table">
+                  <div class="results-placeholder">Start a benchmark to see results</div>
+                </div>
+              </div>
             </div>
+          </div>
+          
+          <!-- Benchmark Description Section -->
+          <div class="benchmark-description-section" id="benchmark-description">
+            <div class="benchmark-info-card">
+              <div class="info-header">
+                <h3 id="benchmark-title">GDM Searchless Puzzles Benchmark</h3>
+                <div class="info-badges">
+                  <span class="info-badge" id="benchmark-target">Target: 49%</span>
+                  <span class="info-badge" id="benchmark-count">1,000 positions</span>
+                </div>
+              </div>
+              
+              <div class="info-content">
+                <div class="info-section">
+                  <h4>Original Source</h4>
+                  <p id="benchmark-source-desc">Tactical puzzle solve rate evaluation from "Grandmaster-level chess without search" paper. Measures model's ability to find correct moves in tactical sequences, not isolated best-move accuracy.</p>
+                  <div class="source-links">
+                    <a href="https://arxiv.org/abs/2402.04494" target="_blank" class="source-link paper-link">📄 Paper (arXiv:2402.04494)</a>
+                    <a href="https://github.com/google-deepmind/searchless_chess" target="_blank" class="source-link code-link">💻 Code Repository</a>
+                    <a href="https://storage.googleapis.com/searchless_chess/data/puzzles.csv" target="_blank" class="source-link data-link">📊 Original Dataset</a>
+                  </div>
+                </div>
+                
+                <div class="info-section">
+                  <h4>Evaluation Methodology</h4>
+                  <div class="methodology-grid">
+                    <div class="methodology-original">
+                      <h5>Original Research</h5>
+                      <div class="method-example">
+                        <code>CSV Format:</code>
+                        <pre>PuzzleId,FEN,Moves,Solution
+00MTG,4r1k1/2p1q...,h4f2 f1f2 e2f2,Bf2+ Rxf2 ...</pre>
+                        <p><strong>Evaluation:</strong> Puzzle solve rate: model tested on every other move in tactical sequences (when model's turn to play)</p>
+                      </div>
+                    </div>
+                    
+                    <div class="methodology-adapted">
+                      <h5>ROOK-CLF Adaptation</h5>
+                      <div class="method-example" id="adaptation-example">
+                        <code>JSON Format:</code>
+                        <pre>{"fen": "4r1k1/2p1q...", "correct_move": "f1f2"}</pre>
+                        <p><strong>Evaluation:</strong> Position-based tactical move prediction at model decision points, evaluating puzzle-solving capability</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="info-section">
+                  <h4 id="benchmark-citation-header">Citation</h4>
+                  <div class="citation-box">
+                    <p id="benchmark-citation">Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interpretability Component -->
+      <div id="interpretability-component" class="component-container">
+        <div class="interpretability-content">
+          <div class="interp-header">
+            <h2>Attention Rollout</h2>
+            <p class="interp-subtitle">Compute square relevance from exported attentions and explore how focus evolves across layers.</p>
+          </div>
+            <div class="interp-controls">
+              <div class="interp-control-group">
+                <label class="interp-label">FEN</label>
+                <input id="interp-fen" class="interp-input" type="text" placeholder="Enter FEN..." />
+                <button id="interp-run" class="benchmark-btn primary">Run</button>
+                <button id="interp-random-fen" class="benchmark-btn secondary">Random FEN</button>
+              </div>
+              <div class="interp-control-group">
+                <label class="interp-label">Layer</label>
+                <input id="interp-layer" type="range" min="1" max="16" value="16" />
+                <span id="interp-layer-val" class="interp-layer-val">all</span>
+              </div>
+            </div>
+
+          <div class="interp-grid">
+            <section class="interp-section">
+              <h3>Attention Rollout</h3>
+              <p class="interp-desc">Residual‑corrected attention aggregated across layers. Shows token‑to‑decision relevance per layer. Use the slider to scrub layers.</p>
+              <canvas id="interp-heatmap" width="640" height="560" class="interp-canvas"></canvas>
+              <div id="interp-meta-row" class="meta-row"></div>
+            </section>
+
+            <section class="interp-section">
+              <h3>Early Logit Lens</h3>
+              <p class="interp-desc">For each layer’s decision-token state, projects with the final classifier to show layer-wise move beliefs. Hover a move to highlight its squares.</p>
+              <div id="interp-lens" class="lens-container"><code>Awaiting run…</code></div>
+            </section>
+
+            <section class="interp-section interp-span">
+              <h3>Model Diagram & Heads</h3>
+              <p class="interp-desc">Interactive overview of layers and heads. Click a head to view that head’s attention at the selected layer; click “Mean over heads” to return.</p>
+              <div class="diagram-toolbar">
+                <button id="heads-mean-btn" class="benchmark-btn secondary">Mean over heads</button>
+                <span class="interp-desc">Layers: 1..8 • Heads: 1..8</span>
+              </div>
+              <div id="interp-diagram" class="diagram-grid"></div>
+            </section>
+
+            <div class="interp-row-2 interp-span">
+              <section class="interp-section">
+                <h3>Top‑k Attention Paths</h3>
+                <p class="interp-desc">Strongest paths to the decision token. Opacity scales with path strength.</p>
+                <canvas id="interp-paths" width="640" height="560" class="interp-canvas"></canvas>
+              </section>
+              <section class="interp-section">
+                <h3>Occlusion Heatmap</h3>
+                <p class="interp-desc">Forward‑only masking. Shows Δ for the selected move; click a move in the Logit Lens.</p>
+                <canvas id="interp-occlusion" width="640" height="560" class="interp-canvas"></canvas>
+              </section>
+            </div>
+
+            <div id="interp-status" class="placeholder interp-span">Enter a FEN and click Run. Use the slider to explore layers. Hover moves in the Logit Lens to see overlays.</div>
           </div>
         </div>
       </div>
