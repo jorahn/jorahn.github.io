@@ -152,9 +152,11 @@ export class InterpretabilityComponent {
     try {
       const resp = await fetch('./benchmarks/lichess_puzzles.json');
       const data = await resp.json();
-      if (!Array.isArray(data) || data.length === 0) return;
-      const idx = Math.floor(Math.random() * data.length);
-      const fen = data[idx]?.fen;
+      const positions = Array.isArray(data) ? data : (Array.isArray(data?.positions) ? data.positions : []);
+      if (!positions.length) { console.warn('No positions in lichess_puzzles.json'); return; }
+      const idx = Math.floor(Math.random() * positions.length);
+      const entry = positions[idx];
+      const fen = entry?.fen;
       if (fen) {
         if (this.fenInput) this.fenInput.value = fen;
         await this.run();
@@ -278,34 +280,27 @@ export class InterpretabilityComponent {
       for (let i = 0; i < S; i++) for (let j = 0; j < S; j++) if (i !== j) A[i*S + j] = (1 - this.alpha) * A[i*S + j];
       Atilde.push(A);
     }
-    // Beam search for top-k paths to CLS
-    const K = 5; const BEAM = 40;
-    let states = [];
-    for (let i = 0; i < 64; i++) states.push({ node: i, score: 1, path: [i] });
-    for (let l = 0; l < useL; l++) {
+    // Beam search BACKWARD from CLS to sources across layers
+    const K = 8; const BEAM = 64;
+    let states = [{ node: cls, score: 1, path: [cls] }];
+    for (let l = useL - 1; l >= 0; l--) {
       const A = Atilde[l];
       const next = [];
       for (const st of states) {
-        // take top fan-out from this node
-        const row = st.node;
-        // precompute top-8 destinations
-        const dests = Array.from({length: S}, (_, j) => ({ j, w: A[row*S + j] }))
-          .sort((a,b)=>b.w-a.w).slice(0,8);
-        for (const {j, w} of dests) {
-          next.push({ node: j, score: st.score * (w || 1e-9), path: [...st.path, j] });
+        const dest = st.node; // current query token
+        // predecessors are sources with high A[dest, src]
+        const preds = Array.from({length: S}, (_, src) => ({ src, w: A[dest*S + src] }))
+          .sort((a,b)=>b.w-a.w)
+          .slice(0, 8);
+        for (const {src, w} of preds) {
+          if (w <= 0) continue;
+          next.push({ node: src, score: st.score * (w || 1e-12), path: [src, ...st.path] });
         }
       }
       next.sort((a,b)=>b.score-a.score);
       states = next.slice(0, BEAM);
     }
-    // Ensure end at CLS by appending a final jump probability
-    const endPaths = states
-      .map(s => {
-        const wToCls = useL > 0 ? Atilde[useL-1][s.node*S + cls] : 0;
-        return { node: cls, score: s.score * (wToCls || 1e-12), path: [...s.path, cls] };
-      })
-      .sort((a,b)=>b.score-a.score)
-      .slice(0, K);
+    const endPaths = states.sort((a,b)=>b.score-a.score).slice(0, K);
     // Draw
     const ctx = this.pathsCanvas.getContext('2d');
     const w = this.pathsCanvas.width, h = this.pathsCanvas.height;
@@ -326,22 +321,36 @@ export class InterpretabilityComponent {
       }
     };
     for (const p of endPaths) {
-      ctx.beginPath();
-      // draw segments between successive board-square nodes, skipping non-board hops
-      let last = null;
+      // Collect board-node centers in order
+      const pts = [];
       for (let t = 0; t < p.path.length; t++) {
         const node = p.path[t];
-        if (node < 64) {
-          const c = center(node);
-          if (!last) ctx.moveTo(c.x, c.y);
-          else ctx.lineTo(c.x, c.y);
-          last = c;
-        }
+        if (node < 64) pts.push(center(node));
       }
       const alpha = Math.min(1, 0.15 + 0.85 * (p.score / (endPaths[0]?.score || 1e-9)));
       ctx.strokeStyle = `rgba(138,232,216,${alpha})`;
+      ctx.fillStyle = `rgba(138,232,216,${Math.min(1, alpha+0.1)})`;
       ctx.lineWidth = 2;
-      ctx.stroke();
+      if (pts.length >= 2) {
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.stroke();
+      } else if (pts.length === 1) {
+        // Fallback: draw ray from single board source to CLS anchor
+        const start = pts[0];
+        const end = { x: w/2, y: y0 + boardSize + 10 };
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+      }
+      // Draw small markers on board points to make paths visible
+      for (const pt of pts) {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, Math.max(2, cellW*0.08), 0, Math.PI*2);
+        ctx.fill();
+      }
     }
   }
 
