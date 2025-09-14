@@ -40,27 +40,25 @@ export function setProgressCallback(callback) {
 async function getBestExecutionProvider() {
   const providers = [];
   
-  // Check WebGPU availability (fastest, if compatible)
+  // NOTE: WebGPU AND WebGL are disabled for the main ROOK-CLF model.
+  // The ROOK-CLF ONNX graph requires int64 inputs which neither WebGPU nor WebGL support.
+  // The model architecture was designed for int64 tokens and cannot be easily converted to int32.
+  // Only the interpretation model (model.interpret.onnx) supports int32 and can use GPU acceleration.
+  
   if ('gpu' in navigator) {
     try {
       const adapter = await navigator.gpu.requestAdapter();
       if (adapter) {
-        providers.push('webgpu');
-        console.log('✅ WebGPU available - will try with int32 tensors');
+        console.log('⚠️ WebGPU available but disabled for main model (int64 incompatibility)');
       }
     } catch (error) {
       console.log('❌ WebGPU not available:', error.message);
     }
   }
   
-  // NOTE: WebGL disabled for this model.
-  // The ROOK-CLF ONNX graph (and inputs) use int64 which the WebGL EP does not support.
-  // Attempting WebGL yields errors like: "int64 is not supported" and ORT format parser errors.
-  // To re-enable WebGL in the future, convert the model inputs to int32 and rebuild an ORT-format model.
-  
-  // WASM is always available as final fallback
+  // WASM is the only compatible provider for the main ROOK-CLF model
   providers.push('wasm');
-  console.log('✅ WebAssembly available - will use as fallback');
+  console.log('✅ WebAssembly - only compatible provider for ROOK-CLF model');
   
   console.log(`Execution provider priority: [${providers.join(', ')}]`);
   return providers;
@@ -486,9 +484,7 @@ async function loadModelInternal() {
     console.log(`🚀 Model running on: ${actualProvider.toUpperCase()}`);
     
     // Update progress with execution provider info
-    const providerText = actualProvider === 'webgpu' ? 'WebGPU-accelerated' : 
-                        actualProvider === 'webgl' ? 'WebGL-accelerated' : 'WebAssembly';
-    updateProgress(100, 'Ready!', `Model loaded (${providerText})`);
+    updateProgress(100, 'Ready!', `Model loaded (WebAssembly - int64 compatible)`);
     
     return { session, tokenizerData, config };
   } catch (err) {
@@ -505,37 +501,17 @@ export async function runInference(fen) {
   const vocab = tokenizerData.model?.vocab || {};
   const encoded = tokenizeRookFen(fen, vocab);
   
-  // Prepare tensors - use appropriate type based on execution provider
-  console.log('Creating tensors with shape:', [1, encoded.input_ids.length]);
+  // Prepare tensors - ROOK-CLF model always requires int64 tensors (WASM only)
+  console.log('Creating int64 tensors with shape:', [1, encoded.input_ids.length]);
   
-  const executionProvider = session._actualProvider || session.executionProviders?.[0] || 'wasm';
-  const needsInt32 = executionProvider === 'webgpu' || executionProvider === 'webgl';
-  
-  let inputIds, attentionMask;
-  
-  if (needsInt32) {
-    // WebGPU/WebGL: Use int32 tensors
-    console.log(`Using int32 tensors for ${executionProvider} backend`);
-    inputIds = new ort.Tensor('int32', 
-      Int32Array.from(encoded.input_ids), 
-      [1, encoded.input_ids.length]
-    );
-    attentionMask = new ort.Tensor('int32', 
-      Int32Array.from(encoded.attention_mask), 
-      [1, encoded.attention_mask.length]
-    );
-  } else {
-    // WASM: Use int64 tensors (original)
-    console.log(`Using int64 tensors for ${executionProvider} backend`);
-    inputIds = new ort.Tensor('int64', 
-      BigInt64Array.from(encoded.input_ids.map(x => BigInt(x))), 
-      [1, encoded.input_ids.length]
-    );
-    attentionMask = new ort.Tensor('int64', 
-      BigInt64Array.from(encoded.attention_mask.map(x => BigInt(x))), 
-      [1, encoded.attention_mask.length]
-    );
-  }
+  const inputIds = new ort.Tensor('int64', 
+    BigInt64Array.from(encoded.input_ids.map(x => BigInt(x))), 
+    [1, encoded.input_ids.length]
+  );
+  const attentionMask = new ort.Tensor('int64', 
+    BigInt64Array.from(encoded.attention_mask.map(x => BigInt(x))), 
+    [1, encoded.attention_mask.length]
+  );
   
   console.log('Tensor shapes - input:', inputIds.dims, 'attention:', attentionMask.dims);
   console.log('Tensor types - input:', inputIds.type, 'attention:', attentionMask.type);
