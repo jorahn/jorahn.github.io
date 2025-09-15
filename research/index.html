@@ -42,15 +42,34 @@
             <h2>Interactive Demos</h2>
             
             <div class="project-card">
-                <h3>ROOK-CLF-9M Multi-Component Analysis Platform</h3>
+                <h3>RookWorld-LM Reasoning & World Model Demo</h3>
+                <p>Experience transparent reasoning with ROOK-LM and RookWorld-LM. Watch the models think step-by-step through chess positions with streaming chain-of-thought visualization.</p>
+                
+                <div class="metrics">
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                        <li>🏆 <strong>32.1% Checkmate-in-One</strong> - outperforms ChessGPT-Base (26.5%) with 24x fewer parameters</li>
+                        <li>ChessGPT: 3B params, NeurIPS'23 dataset award (Feng et al.)</li>
+                        <li>99.9% environment simulation accuracy</li>
+                        <li>Self-play without external engines</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-link">
+                    <a href="#" class="btn-primary disabled">Launch Demo 🚧</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>ROOK-CLF-9M Multi-Component Analysis Demo</h3>
                 <p>Comprehensive evaluation platform for the 9M parameter chess language model featuring interactive analysis, professional benchmarking, and attention visualization. Explore strategic reasoning capabilities through three specialized interfaces.</p>
                 
                 <div class="metrics">
-                    <h4>Platform Features:</h4>
+                    <h4>Features:</h4>
                     <ul>
                         <li><strong>Selfplay:</strong> Interactive chess board with real-time move analysis and autoplay</li>
                         <li><strong>Benchmark:</strong> Professional evaluation against research datasets (ChessBench, BIG-bench, Lichess)</li>
-                        <li><strong>Interpretability:</strong> Attention rollout heatmaps and early logit lens visualization</li>
+                        <li><strong>Interpretability (WIP 🚧):</strong> Attention rollout heatmaps and early logit lens visualization</li>
                         <li><strong>Performance:</strong> WebGPU acceleration with IndexedDB model caching</li>
                     </ul>
                 </div>
@@ -66,32 +85,13 @@
                 </div>
                 
                 <div class="demo-link">
-                    <a href="/research/rook-clf-demo/" class="btn-primary">Launch Platform</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>RookWorld Interactive Space</h3>
-                <p>Experience the unified agent+environment model that combines chess policy and world simulation in a single transformer. Play against the model or watch it play against itself.</p>
-                
-                <div class="metrics">
-                    <h4>Key Achievements:</h4>
-                    <ul>
-                        <li>🏆 <strong>32.1% Checkmate-in-One</strong> - outperforms ChessGPT-Base (26.5%) with 24x fewer parameters</li>
-                        <li>ChessGPT: 3B params, NeurIPS'23 dataset award (Feng et al.)</li>
-                        <li>99.9% environment simulation accuracy</li>
-                        <li>Self-play without external engines</li>
-                    </ul>
-                </div>
-                
-                <div class="demo-link">
-                    <a href="https://huggingface.co/spaces/jrahn/rookworld" target="_blank" class="btn-primary">Launch on HuggingFace</a>
+                    <a href="/research/rook-clf-demo/" class="btn-primary">Launch Demo</a>
                 </div>
             </div>
         </section>
 
         <section class="content-section">
-            <h2>Research Papers & Notes</h2>
+            <h2>Research Publications</h2>
             
             <div class="project-card">
                 <h3>ROOK: Reasoning Over Organized Knowledge</h3>
@@ -100,16 +100,6 @@
                 <div class="project-links">
                     <a href="https://laion.ai/notes/rook/" target="_blank" class="project-link">Read Paper</a>
                     <a href="https://github.com/jorahn/rook" target="_blank" class="project-link">View Code</a>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <h3>Grandmaster-Level Chess Without Search (Reproduction)</h3>
-                <p>Our reproduction and extension of Google DeepMind's landmark paper, demonstrating that small language models can achieve strong chess performance without traditional search algorithms.</p>
-                
-                <div class="project-links">
-                    <a href="https://arxiv.org/abs/2402.04494" target="_blank" class="project-link">Original Paper</a>
-                    <a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank" class="project-link">Our Model</a>
                 </div>
             </div>
         </section>

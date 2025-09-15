@@ -8,6 +8,9 @@ node_modules/*
 research/rook-clf-demo/node_modules/.package-lock.json
 research/rook-clf-demo/package-lock.json
 
+# RookWorld demo - work in progress, keep out of git for now
+research/rookworld-demo/
+
 # OS and log files
 .DS_Store
 *.log
