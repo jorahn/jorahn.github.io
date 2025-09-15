@@ -225,10 +225,10 @@ export class BenchmarkComponent {
     
     const descriptions = {
       gdm_action: {
-        title: "🚧 GDM Action Accuracy (Under Construction)",
+        title: "🚧 ChessBench Action Accuracy (Under Construction)",
         target: "Reported: 49%",
         count: "1,000 positions",
-        description: "Single-position best move accuracy from GDM searchless chess data. Currently achieving 37% - implementation under review to reach published 49% target.",
+        description: "Single-position best move accuracy from ChessBench (Google DeepMind) data. Currently achieving 37% - implementation under review to reach published 49% target.",
         citation: "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
         links: [
           { url: "https://arxiv.org/abs/2402.04494", text: "📄 Paper (arXiv:2402.04494)", class: "paper-link" },
@@ -244,10 +244,10 @@ text: processed_fen + "[CLS]", label: "h4f2"`,
       },
       
       gdm_puzzle: {
-        title: "GDM Puzzle Solve Rate",
+        title: "ChessBench Puzzles",
         target: "Reported: 50%",
         count: "1,000 positions",
-        description: "Tactical puzzle solve rate from GDM searchless chess data. Tests model's ability to solve multi-move tactical sequences with checkmate fallback.",
+        description: "Tactical puzzle evaluation sourced from the ChessBench release. Tests multi-move tactical sequences with checkmate fallback.",
         citation: "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
         links: [
           { url: "https://arxiv.org/abs/2402.04494", text: "📄 Paper (arXiv:2402.04494)", class: "paper-link" },

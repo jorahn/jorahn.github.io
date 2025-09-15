@@ -50,7 +50,7 @@
       <div class="header-content">
         <div class="header-text">
           <h1>ROOK-CLF-9M Chess Analysis</h1>
-          <p class="subtitle">Strategic reasoning through language models • <a href="https://github.com/google-deepmind/searchless_chess" target="_blank" class="metric-link">49% puzzle solve rate (GDM Searchless)</a> • <a href="https://github.com/google/BIG-bench" target="_blank" class="metric-link">57% checkmate-in-one (BIG-bench)</a> • 9M parameter LLaMA • Trained on <a href="https://huggingface.co/datasets/lfsm/rook-40m" target="_blank" class="dataset-link">40M chess games</a></p>
+          <p class="subtitle">Strategic reasoning through language models • <a href="https://github.com/google-deepmind/searchless_chess#datasets" target="_blank" class="metric-link">49% action accuracy (ChessBench)</a> • <a href="https://github.com/google/BIG-bench" target="_blank" class="metric-link">57% checkmate-in-one (BIG-bench)</a> • 9M parameter LLaMA • Trained on <a href="https://github.com/google-deepmind/searchless_chess#datasets" target="_blank" class="dataset-link">ChessBench (40M)</a></p>
           <p class="research-context">
             <a href="https://github.com/jorahn" target="_blank" class="author-link"><strong>Jonathan Rahn</strong></a> • 
             Jenia Jitsev • Qi Sun • 
@@ -240,10 +240,10 @@
             <div class="benchmark-selector">
               <label for="benchmark-select">Benchmark:</label>
               <select id="benchmark-select">
-                <option value="gdm_puzzle">GDM Puzzle Solve Rate (Reported: 50%)</option>
+                <option value="gdm_puzzle">ChessBench Puzzles (per paper)</option>
                 <option value="bigbench">Google BIG-bench Checkmate-in-One (Reported: 57%)</option>
                 <option value="lichess">Lichess Tactical Puzzles (Reported: 65%)</option>
-                <option value="gdm_action">🚧 GDM Action Accuracy (Reported: 49%)</option>
+                <option value="gdm_action">🚧 ChessBench Action Accuracy (Reported: 49%)</option>
               </select>
             </div>
             
@@ -304,7 +304,7 @@
           <div class="benchmark-description-section" id="benchmark-description">
             <div class="benchmark-info-card">
               <div class="info-header">
-                <h3 id="benchmark-title">GDM Searchless Puzzles Benchmark</h3>
+                <h3 id="benchmark-title">ChessBench Puzzles Benchmark</h3>
                 <div class="info-badges">
                   <span class="info-badge" id="benchmark-target">Target: 49%</span>
                   <span class="info-badge" id="benchmark-count">1,000 positions</span>

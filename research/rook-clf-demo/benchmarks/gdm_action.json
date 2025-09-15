@@ -1,6 +1,6 @@
 {
-  "name": "GDM Searchless Action Accuracy",
-  "description": "Best move accuracy evaluation from GDM searchless chess data. Tests single-position move prediction without puzzle sequences.",
+  "name": "ChessBench Action Accuracy",
+  "description": "Best move accuracy evaluation from ChessBench (Google DeepMind) data. Tests single-position move prediction without puzzle sequences.",
   "target_accuracy": 49.0,
   "citation": "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
   "source_url": "https://github.com/google-deepmind/searchless_chess",

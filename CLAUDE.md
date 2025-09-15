@@ -32,7 +32,7 @@ The ROOK-CLF demo is now a comprehensive evaluation platform:
   - **`interpretability.js`** - Attention visualization and model analysis
 
 #### **Benchmark System**
-- **Real research datasets** - GDM Searchless, Big-Bench Checkmate, Lichess Puzzles
+- **Real research datasets** - ChessBench, BIG-bench Checkmate, Lichess Puzzles
 - **Authentic evaluation** - Matches published research methodologies  
 - **Real-time visualization** - Canvas-based accuracy charts with target reference lines
 - **Performance metrics** - Live accuracy, throughput, progress tracking
@@ -137,7 +137,7 @@ The site is deployed on GitHub Pages with automatic deployment from the main bra
 ### **Completed Features**
 - ✅ **Multi-component architecture** with tab navigation
 - ✅ **Shared model system** with GPU acceleration
-- ✅ **Real benchmark datasets** (GDM, Big-Bench, Lichess)
+- ✅ **Real benchmark datasets** (ChessBench, BIG-bench, Lichess)
 - ✅ **Responsive selfplay component** (desktop side-by-side, mobile stacked)
 - ✅ **Professional benchmark evaluation** with real-time charts
 - ✅ **Interpretability component** with attention rollout, logit lens, and interactive model diagram
@@ -154,7 +154,7 @@ The site is deployed on GitHub Pages with automatic deployment from the main bra
 - **Interpretability features**: Attention rollout, logit lens, and model diagram completed with responsive UI
 
 ### **Benchmark Data Sources**
-- **GDM Searchless**: 1,000 tactical puzzle positions (49% reported solve rate)
+- **ChessBench Puzzles**: Tactical puzzle positions (per paper)
 - **Big-Bench Checkmate**: 3,500 checkmate positions (57% reported solve rate)  
 - **Lichess Puzzles**: 1,000+ community puzzles (65% estimated solve rate)
 

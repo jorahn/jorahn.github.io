@@ -10,7 +10,7 @@
   - `model-utils.js` — shared model loading, tokenization, and inference utilities
   - `components/` — modular component implementations (selfplay, benchmark, interpretability)
   - `model/` — ONNX models and tokenizer configuration
-  - `benchmarks/` — research dataset files (GDM, Big-Bench, Lichess)
+  - `benchmarks/` — research dataset files (ChessBench, BIG-bench, Lichess)
   - `package.json` — Node.js dependencies for chess engine and UI libraries
 
 ## Build, Test, and Development Commands

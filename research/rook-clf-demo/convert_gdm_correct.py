@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert GDM searchless chess data correctly, following the research evaluation methodology.
+Convert ChessBench (Google DeepMind) searchless chess data correctly, following the research evaluation methodology.
 The key insight: puzzles have multiple moves, and we need to evaluate the model's ability
 to find the correct move at EACH position in the sequence where it's the model's turn to play.
 """
@@ -36,7 +36,7 @@ def process_fen_rook_style(fen):
     return "".join([position, turn, castling, en_passant, halfmove, fullmove])
 
 def convert_gdm_puzzles_correct():
-    """Convert GDM puzzles following the research evaluation methodology."""
+    """Convert ChessBench puzzles following the research evaluation methodology."""
     
     positions = []
     seen_puzzles = set()
@@ -123,7 +123,7 @@ def convert_gdm_puzzles_correct():
     
     # Create the benchmark file
     benchmark_data = {
-        "name": "Google DeepMind Searchless Chess Benchmark (Research Methodology)",
+        "name": "ChessBench Puzzles (Research Methodology)",
         "description": "Puzzle sequence evaluation matching the research paper methodology - evaluates model's move prediction at each decision point",
         "target_accuracy": 49.0,
         "citation": "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
@@ -137,7 +137,7 @@ def convert_gdm_puzzles_correct():
     with open('benchmarks/gdm_searchless.json', 'w') as f:
         json.dump(benchmark_data, f, indent=2)
     
-    print(f"Converted {len(positions)} GDM evaluation positions across {len(seen_puzzles)} puzzles using research methodology")
+    print(f"Converted {len(positions)} ChessBench evaluation positions across {len(seen_puzzles)} puzzles using research methodology")
     return len(positions)
 
 def get_difficulty_from_rating(rating):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Convert GDM searchless data to ACTION format for best move accuracy evaluation.
+Convert ChessBench (Google DeepMind) data to ACTION format for best move accuracy evaluation.
 This creates simple FEN → move pairs, not puzzle sequences.
 """
 
@@ -10,7 +10,7 @@ import chess
 from pathlib import Path
 
 def convert_gdm_action():
-    """Convert GDM puzzles to simple action format: FEN + single best move."""
+    """Convert ChessBench puzzles to simple action format: FEN + single best move."""
     
     positions = []
     
@@ -62,8 +62,8 @@ def convert_gdm_action():
     
     # Create the benchmark file
     benchmark_data = {
-        "name": "GDM Searchless Action Accuracy",
-        "description": "Best move accuracy evaluation from GDM searchless chess data. Tests single-position move prediction without puzzle sequences.",
+        "name": "ChessBench Action Accuracy",
+        "description": "Best move accuracy evaluation from ChessBench (Google DeepMind) data. Tests single-position move prediction without puzzle sequences.",
         "target_accuracy": 49.0,
         "citation": "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
         "source_url": "https://github.com/google-deepmind/searchless_chess",
@@ -77,7 +77,7 @@ def convert_gdm_action():
     with open('benchmarks/gdm_action.json', 'w') as f:
         json.dump(benchmark_data, f, indent=2)
     
-    print(f"Converted {len(positions)} GDM action accuracy positions")
+    print(f"Converted {len(positions)} ChessBench action accuracy positions")
     return len(positions)
 
 def get_difficulty_from_rating(rating):

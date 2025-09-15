@@ -67,7 +67,7 @@ def convert_bigbench_checkmate():
     return len(positions)
 
 def convert_gdm_puzzles():
-    """Convert Google DeepMind searchless chess puzzles to our format."""
+    """Convert ChessBench (Google DeepMind) puzzles to our format."""
     
     positions = []
     
@@ -116,8 +116,8 @@ def convert_gdm_puzzles():
     
     # Create the benchmark file
     benchmark_data = {
-        "name": "Google DeepMind Searchless Chess Benchmark",
-        "description": "Benchmark positions from 'Grandmaster-level chess without search' paper for evaluating best move accuracy",
+        "name": "ChessBench",
+        "description": "Benchmark positions from 'Grandmaster-level chess without search' (ChessBench) for evaluating best move accuracy",
         "target_accuracy": 49.0,
         "citation": "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
         "source_url": "https://github.com/google-deepmind/searchless_chess",
@@ -128,7 +128,7 @@ def convert_gdm_puzzles():
     with open('benchmarks/gdm_searchless.json', 'w') as f:
         json.dump(benchmark_data, f, indent=2)
     
-    print(f"Converted {len(positions)} GDM searchless positions")
+    print(f"Converted {len(positions)} ChessBench positions")
     return len(positions)
 
 def convert_lichess_puzzles():
@@ -249,7 +249,7 @@ if __name__ == "__main__":
     print("\n1. Converting Big-Bench Checkmate data...")
     bigbench_count = convert_bigbench_checkmate()
     
-    print("\n2. Converting GDM Searchless Chess data...")
+    print("\n2. Converting ChessBench data...")
     gdm_count = convert_gdm_puzzles()
     
     print("\n3. Converting Lichess Puzzle data...")
@@ -257,6 +257,6 @@ if __name__ == "__main__":
     
     print(f"\nConversion complete:")
     print(f"- Big-Bench Checkmate: {bigbench_count} positions")
-    print(f"- GDM Searchless: {gdm_count} positions")
+    print(f"- ChessBench: {gdm_count} positions")
     print(f"- Lichess Puzzles: {lichess_count} positions")
     print(f"\nTotal: {bigbench_count + gdm_count + lichess_count} benchmark positions")

@@ -1,5 +1,5 @@
 {
-  "name": "Google DeepMind Searchless Chess Benchmark (Research Methodology)",
+  "name": "ChessBench Puzzles (Research Methodology)",
   "description": "Puzzle sequence evaluation matching the research paper methodology - evaluates model's move prediction at each decision point",
   "target_accuracy": 49.0,
   "citation": "Ruoss et al. 2024. Grandmaster-level chess without search. arXiv:2402.04494",
