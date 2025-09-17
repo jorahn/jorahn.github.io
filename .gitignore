@@ -3,6 +3,11 @@
 node_modules/*
 !node_modules/onnxruntime-web/
 
+# RookWorld demo dependencies needed for production
+!research/rookworld-demo/node_modules/
+research/rookworld-demo/node_modules/.bin/
+research/rookworld-demo/node_modules/.package-lock.json
+
 # For the demo, we need to include the necessary dependencies
 # Only exclude package-lock.json and other unnecessary files
 research/rook-clf-demo/node_modules/.package-lock.json
