@@ -106,9 +106,17 @@ No build process required - open index.html directly or serve via any static fil
 ### Research Projects
 The site showcases multiple research projects in chess AI:
 - **RookWorld-RLVR** - Current development (reinforcement learning)
-- **RookWorld-LM-124M** - Unified agent+environment model
+- **RookWorld-LM-124M** - Unified agent+environment model with working browser demo
+- **ROOK-LM-124M** - Policy-only language model with browser inference
 - **ROOK-CLF-9M** - Classification approach with interactive demo
 - **YoloChess** - Foundation work using BERT
+
+### RookWorld Demo (NEW)
+- **Working JavaScript implementation** for ROOK-LM and RookWorld-LM inference
+- **Browser-based ONNX inference** with proper GPT-2 tokenization
+- **Side-by-side model comparison** interface
+- **Greedy generation** with streaming display
+- **Correct prompt formats**: Raw FEN for ROOK-LM, "P: " prefix for RookWorld-LM
 
 ### External Links
 - HuggingFace models and datasets

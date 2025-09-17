@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RookWorld-LM — Chain-of-Thought Chess Reasoning</title>
+    <link rel="icon" type="image/jpeg" href="../../avatar.jpg">
+
+    <!-- jQuery (required by chessboard.js) -->
+    <script src="../rook-clf-demo/node_modules/jquery/dist/jquery.min.js"></script>
+
+    <!-- Chessboard CSS -->
+    <link rel="stylesheet" href="../rook-clf-demo/node_modules/@chrisoakman/chessboardjs/dist/chessboard-1.0.0.min.css" />
+
+    <!-- Our styles -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="rookworld-styles.css" />
+
+    <!-- Import map for ES modules -->
+    <script type="importmap">
+      {
+        "imports": {
+          "onnxruntime-web": "../rook-clf-demo/node_modules/onnxruntime-web/dist/ort.all.bundle.min.mjs",
+          "chess.js": "../rook-clf-demo/node_modules/chess.js/dist/esm/chess.js",
+          "gpt-tokenizer": "./node_modules/gpt-tokenizer/esm/main.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="../../" class="nav-brand">
+                <img src="../../avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
+                <span>Jonathan Rahn</span>
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="../../" class="nav-link">About</a>
+                <a href="../" class="nav-link active">Research</a>
+                <a href="../../blog/" class="nav-link">Blog</a>
+                <a href="https://github.com/jorahn" class="nav-link" target="_blank">GitHub</a>
+                <a href="https://huggingface.co/jrahn" class="nav-link" target="_blank">HuggingFace</a>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>RookWorld-LM Chain-of-Thought Chess</h1>
+          <p class="subtitle">Strategic reasoning with transparent thought processes • <a href="https://laion.ai/notes/rook/" target="_blank" class="metric-link">32.1% checkmate-in-one</a> • Outperforms <a href="https://arxiv.org/abs/2306.09200" target="_blank" class="metric-link">ChessGPT-Base 26.5%</a> with 24x fewer parameters • 124M unified agent+environment</p>
+          <p class="research-context">
+            <a href="https://github.com/jorahn" target="_blank" class="author-link"><strong>Jonathan Rahn</strong></a> •
+            Jenia Jitsev • Qi Sun •
+            <em>LAION Research Project</em>
+          </p>
+        </div>
+        <div class="header-badges">
+          <a href="https://huggingface.co/jrahn/RookWorld-LM-124M" target="_blank" class="badge hf-badge">
+            🤗 RookWorld-LM
+          </a>
+          <a href="https://github.com/jorahn/RookWorld" target="_blank" class="badge github-badge">
+            🔗 GitHub
+          </a>
+          <a href="https://laion.ai/notes/rook" target="_blank" class="badge research-badge">
+            📄 Research
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Component Navigation - Hidden for single component mode -->
+    <nav class="component-nav" style="display: none;">
+      <div class="component-nav-container">
+        <div class="component-tabs">
+          <button class="component-tab active" data-component="reasoning">
+            <span class="tab-icon">🧠</span>
+            <span class="tab-text">Chain-of-Thought Self-Play</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h2>Loading RookWorld-LM</h2>
+        <p class="loading-status">Initializing...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="loading-details" id="loading-details">Loading model from HuggingFace (~100MB). First load may take 30-60 seconds...</p>
+      </div>
+    </div>
+
+    <main class="app-container">
+      <!-- Chain-of-Thought Component -->
+      <div id="reasoning-component" class="component-container active">
+        <div class="reasoning-content">
+          <div class="reasoning-header">
+            <h2>Chain-of-Thought Reasoning</h2>
+            <p class="reasoning-description">Watch RookWorld-LM analyze positions step-by-step with transparent reasoning traces</p>
+          </div>
+
+          <div class="reasoning-main">
+            <!-- Left Panel: Chess Board -->
+            <div class="board-panel">
+              <div class="board-container">
+                <div id="board"></div>
+              </div>
+
+              <div class="controls">
+                <div class="button-group">
+                  <button id="start-selfplay-btn" class="position-btn primary">Start Self-Play</button>
+                  <button id="pause-selfplay-btn" class="position-btn" disabled>Pause</button>
+                  <button id="reset-selfplay-btn" class="position-btn">Reset Game</button>
+                </div>
+
+
+                <!-- Environment toggle (only for RookWorld-LM) -->
+                <div class="environment-toggle" style="display: none;">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="environment-toggle">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Environment Simulation</span>
+                  </label>
+                  <p class="toggle-description">Use RookWorld's environment model to validate moves and simulate state transitions</p>
+                </div>
+
+                <div class="model-selector">
+                  <label for="model-select">Model:</label>
+                  <select id="model-select">
+                    <option value="rookworld">RookWorld-LM (Unified)</option>
+                    <option value="rook-lm">ROOK-LM (Policy Only)</option>
+                  </select>
+                </div>
+
+                <div class="game-info">
+                  <div class="info-row">
+                    <span>Move:</span> <span id="move-count">1</span>
+                  </div>
+                  <div class="info-row">
+                    <span>Turn:</span> <span id="current-turn">White</span>
+                  </div>
+                  <div class="info-row">
+                    <span>Status:</span> <span id="game-status">Ready to start</span>
+                  </div>
+                </div>
+
+                <div class="current-fen">
+                  <label>Current FEN:</label>
+                  <code id="current-fen">rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Live Reasoning -->
+            <div class="reasoning-panel">
+              <div class="reasoning-header">
+                <h3>Live Reasoning</h3>
+                <div class="reasoning-status" id="reasoning-status">Ready to start self-play</div>
+              </div>
+
+              <div class="reasoning-trace" id="live-reasoning">
+                <div class="trace-placeholder">
+                  <p>Click "Start Self-Play" to watch RookWorld-LM play chess with transparent reasoning.</p>
+                  <p class="trace-hint">You'll see:</p>
+                  <ul>
+                    <li><strong>P:</strong> Position analysis streaming in real-time</li>
+                    <li><strong>M:</strong> Candidate moves being considered</li>
+                    <li><strong>E:</strong> Evaluation of each candidate</li>
+                    <li><strong>B:</strong> Best move selection</li>
+                    <li><strong>Environment validation:</strong> State transition verification</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="move-candidates" id="move-candidates">
+                <h4>Candidate Moves</h4>
+                <div class="candidates-list" id="candidates-list">
+                  <p class="placeholder">Start self-play to see candidate moves...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Load chessboard.js -->
+    <script src="../rook-clf-demo/node_modules/@chrisoakman/chessboardjs/dist/chessboard-1.0.0.min.js"></script>
+
+    <!-- ONNX Runtime (global) -->
+    <!-- ONNX Runtime - local -->
+    <script src="./node_modules/onnxruntime-web/dist/ort.min.js"></script>
+
+    <!-- Our application -->
+    <script type="module" src="app.js"></script>
+
+    <script>
+        // Mobile navigation toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navToggle').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+  </body>
+</html>

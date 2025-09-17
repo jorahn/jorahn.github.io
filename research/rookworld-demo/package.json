@@ -1,0 +1,21 @@
+{
+  "name": "rook-clf-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@chrisoakman/chessboardjs": "^1.0.0",
+    "@huggingface/transformers": "^3.7.3",
+    "chess.js": "^1.4.0",
+    "gpt-tokenizer": "^3.0.1",
+    "jquery": "^3.7.1",
+    "onnxruntime-web": "^1.22.0"
+  }
+}

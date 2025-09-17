@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+gpt2_onnx_quantization.egg-info/PKG-INFO
+gpt2_onnx_quantization.egg-info/SOURCES.txt
+gpt2_onnx_quantization.egg-info/dependency_links.txt
+gpt2_onnx_quantization.egg-info/requires.txt
+gpt2_onnx_quantization.egg-info/top_level.txt

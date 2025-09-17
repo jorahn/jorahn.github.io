@@ -12,6 +12,12 @@
   - `model/` — ONNX models and tokenizer configuration
   - `benchmarks/` — research dataset files (ChessBench, BIG-bench, Lichess)
   - `package.json` — Node.js dependencies for chess engine and UI libraries
+- **`research/rookworld-demo/`** — ROOK-LM and RookWorld-LM browser inference demo with:
+  - `test.html` — working single-model inference with greedy generation
+  - `compare.html` — side-by-side ROOK-LM vs RookWorld-LM comparison
+  - `assets/` — quantized ONNX models and tokenizer files
+  - `model/` — ROOK-LM-124M and RookWorld-LM-124M models
+  - Working JavaScript implementation with proper tokenization and KV-free inference
 
 ## Build, Test, and Development Commands
 

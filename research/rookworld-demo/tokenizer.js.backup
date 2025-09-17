@@ -1,0 +1,170 @@
+// GPT-2 style tokenizer for ROOK-LM and RookWorld-LM
+// This is a simplified implementation - you'll need to adapt based on your actual tokenizer
+
+export class GPT2Tokenizer {
+  constructor(tokenizerData) {
+    this.vocab = tokenizerData.vocab || {};
+    this.merges = tokenizerData.merges || [];
+    this.vocabSize = Object.keys(this.vocab).length;
+    this.bosToken = tokenizerData.bos_token || '<|startoftext|>';
+    this.eosToken = tokenizerData.eos_token || '<|endoftext|>';
+    this.unkToken = tokenizerData.unk_token || '<|unk|>';
+    this.padToken = tokenizerData.pad_token || '<|pad|>';
+
+    // Create reverse mapping
+    this.idToToken = {};
+    Object.entries(this.vocab).forEach(([token, id]) => {
+      this.idToToken[id] = token;
+    });
+
+    // Special token IDs
+    this.bosTokenId = this.vocab[this.bosToken] || 0;
+    this.eosTokenId = this.vocab[this.eosToken] || 1;
+    this.unkTokenId = this.vocab[this.unkToken] || 2;
+    this.padTokenId = this.vocab[this.padToken] || 3;
+  }
+
+  // Simplified BPE encoding
+  encode(text) {
+    if (!text) return [];
+
+    // Basic preprocessing
+    text = text.trim();
+
+    // Simple word-level tokenization for now
+    // In a full implementation, you'd do proper BPE
+    const tokens = [];
+    const words = text.split(/(\s+)/);
+
+    for (const word of words) {
+      if (word.trim() === '') {
+        // Handle whitespace
+        if (this.vocab[word]) {
+          tokens.push(this.vocab[word]);
+        }
+        continue;
+      }
+
+      // Try exact match first
+      if (this.vocab[word]) {
+        tokens.push(this.vocab[word]);
+        continue;
+      }
+
+      // Fallback: character-level encoding
+      for (const char of word) {
+        if (this.vocab[char]) {
+          tokens.push(this.vocab[char]);
+        } else {
+          tokens.push(this.unkTokenId);
+        }
+      }
+    }
+
+    return tokens;
+  }
+
+  // Decode token IDs back to text
+  decode(tokenIds) {
+    if (!Array.isArray(tokenIds)) return '';
+
+    let text = '';
+    for (const id of tokenIds) {
+      const token = this.idToToken[id];
+      if (token) {
+        text += token;
+      }
+    }
+
+    // Clean up common artifacts
+    text = text.replace(/<\|startoftext\|>/g, '');
+    text = text.replace(/<\|endoftext\|>/g, '');
+    text = text.replace(/<\|pad\|>/g, '');
+
+    return text;
+  }
+
+  // Encode text and add special tokens as needed
+  encodeForGeneration(text, addBos = true) {
+    let tokens = this.encode(text);
+
+    if (addBos && !tokens.length || tokens[0] !== this.bosTokenId) {
+      tokens = [this.bosTokenId, ...tokens];
+    }
+
+    return tokens;
+  }
+
+  // Decode and clean up generated text
+  decodeGeneration(tokenIds, skipSpecialTokens = true) {
+    let text = this.decode(tokenIds);
+
+    if (skipSpecialTokens) {
+      // Remove special tokens
+      text = text.replace(/<\|[^|]+\|>/g, '');
+    }
+
+    return text.trim();
+  }
+}
+
+// Chess-specific tokenization utilities
+export class ChessTokenizer extends GPT2Tokenizer {
+  constructor(tokenizerData) {
+    super(tokenizerData);
+  }
+
+  // Parse chess reasoning format
+  parseChessResponse(text) {
+    const sections = {
+      position: '',
+      moves: [],
+      evaluations: [],
+      bestMove: '',
+      raw: text
+    };
+
+    // Extract P: section (if present)
+    const pMatch = text.match(/P:\s*(.+?)(?=\s*[MEB]:|$)/s);
+    if (pMatch) sections.position = pMatch[1].trim();
+
+    // Extract M: section
+    const mMatch = text.match(/M:\s*(.+?)(?=\s*[EB]:|$)/s);
+    if (mMatch) {
+      sections.moves = mMatch[1].trim().split(/\s+/).filter(m => m.length > 0);
+    }
+
+    // Extract E: section
+    const eMatch = text.match(/E:\s*(.+?)(?=\s*B:|$)/s);
+    if (eMatch) {
+      const evalStr = eMatch[1].trim();
+      sections.evaluations = evalStr.split(/\s+/)
+        .map(e => parseFloat(e))
+        .filter(e => !isNaN(e));
+    }
+
+    // Extract B: section
+    const bMatch = text.match(/B:\s*(.+?)(?=\s|$)/s);
+    if (bMatch) {
+      sections.bestMove = bMatch[1].trim().split(/\s+/)[0];
+    }
+
+    return sections;
+  }
+
+  // Format chess prompt
+  formatChessPrompt(fen, mode = 'policy') {
+    if (mode === 'policy') {
+      return `P: ${fen} `;
+    } else if (mode === 'environment') {
+      // For environment mode, expect additional parameters
+      throw new Error('Environment mode requires state, action, and history');
+    }
+    return fen;
+  }
+
+  formatEnvironmentPrompt(state, action, history = []) {
+    const historyText = history.slice(-10).join(' ');
+    return `A: ${state}+${action}+${historyText}+`;
+  }
+}

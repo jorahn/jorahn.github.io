@@ -1,0 +1,31 @@
+# Test and temporary files
+test*.html
+test*.py
+test*.md
+verify*.html
+verify*.py
+compare.html
+*.old.js
+components/*.old.js
+INTEGRATION*.md
+debug-*.html
+test-*.html
+
+# Large model files (host on HuggingFace instead)
+*.onnx
+*.bin
+*.safetensors
+model/
+assets/*.onnx
+temp_models/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node modules (if needed later)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
