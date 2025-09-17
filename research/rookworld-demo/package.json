@@ -16,6 +16,6 @@
     "chess.js": "^1.4.0",
     "gpt-tokenizer": "^3.0.1",
     "jquery": "^3.7.1",
-    "onnxruntime-web": "^1.22.0"
+    "onnxruntime-web": "^1.16.3"
   }
 }
