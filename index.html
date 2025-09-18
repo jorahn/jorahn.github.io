@@ -142,11 +142,12 @@
 
             <div class="project-card">
                 <h3>YoloChess (2022) - Encoder-based Behavioral Cloning</h3>
-                <p><strong>87M params (Custom DeBERTaV2-base, Vocab Size 500):</strong> Initial exploration using BERT-based position evaluation with custom FEN encoders. Established baseline performance and identified key challenges in chess representation for transformer architectures.</p>
+                <p><strong>87M params (Custom DeBERTaV2-base, Vocab Size 500):</strong> Two-stage training approach: initial masked language modeling (MLM) pretraining on FEN representations, followed by supervised fine-tuning on a sequence classification objective for move prediction. Established baseline performance and identified key challenges in chess representation for transformer architectures.</p>
 
                 <ul>
                     <li><strong>Dataset:</strong> <a href="https://huggingface.co/datasets/jrahn/yolochess_lichess-elite_2211" target="_blank">yolochess_lichess-elite_2211</a></li>
-                    <li><strong>Architecture:</strong> DeBERTa v2 with FEN tokenization</li>
+                    <li><strong>Architecture:</strong> DeBERTa v2 with custom FEN tokenization and classification head</li>
+                    <li><strong>Training:</strong> MLM pretraining → Supervised fine-tuning for sequence classification</li>
                     <li><strong>W&B Logs:</strong> <a href="https://wandb.ai/jrahn/chessv62/reports/Training-V6b-2-Fine-Tuning---VmlldzoyNjgzODk3" target="_blank">View W&B Training Logs</a></li>
                 </ul>
             </div>
