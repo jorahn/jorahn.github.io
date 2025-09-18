@@ -1,8 +1,0 @@
-Metadata-Version: 2.4
-Name: gpt2-onnx-quantization
-Version: 0.1.0
-Summary: A project to convert and quantize a GPT-2 model to ONNX INT8.
-Requires-Python: >=3.9
-Requires-Dist: transformers~=4.42
-Requires-Dist: torch~=2.3
-Requires-Dist: optimum[onnxruntime]~=1.20

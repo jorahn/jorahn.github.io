@@ -107,22 +107,34 @@
             <div class="project-card">
                 <h3>ROOK-CLF (9M params) - Classification Approach</h3>
                 <p>Reproduction of Google DeepMind's <a href="https://arxiv.org/abs/2402.04494" target="_blank">"Grandmaster-Level Chess Without Search"</a> methodology using LLaMA-based decoder.</p>
-                
+
                 <ul>
                     <li><strong>Performance:</strong> 49% action accuracy, 57% on Checkmate-in-One</li>
                     <li><strong>Achievement:</strong> Demonstrated searchless chess AI feasibility with minimal parameters</li>
                     <li><strong>Model:</strong> <a href="https://huggingface.co/jrahn/ROOK-CLF-9m" target="_blank">Available on HuggingFace</a></li>
                 </ul>
-                
+
                 <div class="demo-link">
                     <a href="/research/rook-clf-demo/" class="btn-primary">Try Interactive Demo</a>
                 </div>
             </div>
 
             <div class="project-card">
+                <h3>LAION Strategic Game Dataset (2023) - Collaborative Contribution</h3>
+                <p>Contributed to the <a href="https://laion.ai/blog/strategic-game-dataset/" target="_blank">LAION Strategic Game Dataset</a> project, responding to their call for participation to enhance AI models' strategic planning capabilities through game-based synthetic datasets. Developed chess-to-text transformation tools for dataset generation as part of this community effort exploring strategic reasoning in language models.</p>
+
+                <ul>
+                    <li><strong>Contribution:</strong> Chess dataset generation and transformation pipeline</li>
+                    <li><strong>Code:</strong> <a href="https://github.com/jorahn/chess-to-text" target="_blank">chess-to-text repository</a></li>
+                    <li><strong>Project Scale:</strong> 3.2 billion chess games, 608 billion moves via Stockfish self-play</li>
+                    <li><strong>Impact:</strong> Foundation work that evolved into the ROOK project research</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
                 <h3>YoloChess (2022) - Foundation Work</h3>
                 <p>Initial exploration using BERT-based position evaluation with custom FEN encoders. Established baseline performance and identified key challenges in chess representation for transformer architectures.</p>
-                
+
                 <ul>
                     <li><strong>Dataset:</strong> <a href="https://huggingface.co/datasets/jrahn/yolochess_lichess-elite_2211" target="_blank">yolochess_lichess-elite_2211</a></li>
                     <li><strong>Architecture:</strong> DeBERTa v2 with FEN tokenization</li>

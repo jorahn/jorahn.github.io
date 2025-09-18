@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Jonathan Rahn</title>
+    <link rel="icon" type="image/jpeg" href="../avatar.jpg">
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <nav class="main-nav">
         <div class="nav-container">
-            <a href="/" class="nav-brand">Jonathan Rahn</a>
-            <div class="nav-links">
+            <a href="/" class="nav-brand">
+                <img src="../avatar.jpg" alt="Jonathan Rahn" class="nav-avatar">
+                <span>Jonathan Rahn</span>
+            </a>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
                 <a href="/" class="nav-link">About</a>
                 <a href="/research/" class="nav-link">Research</a>
                 <a href="/blog/" class="nav-link active">Blog</a>
@@ -79,5 +88,21 @@
             <p>&copy; 2024 Jonathan Rahn. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Mobile navigation toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navToggle').classList.remove('active');
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
