@@ -170,8 +170,8 @@ export async function initializeModel(modelType = 'rookworld', onProgress = null
     if (onProgress) onProgress({ stage: 'model', progress: 0 });
 
     // Configure ONNX Runtime
-    // Use local WASM files - ensure correct path resolution
-    ort.env.wasm.wasmPaths = '/research/rookworld-demo/node_modules/onnxruntime-web/dist/';
+    // Use WASM files from rook-clf-demo's node_modules
+    ort.env.wasm.wasmPaths = '/research/rook-clf-demo/node_modules/onnxruntime-web/dist/';
     // Use more threads for better performance (adjust based on CPU)
     ort.env.wasm.numThreads = navigator.hardwareConcurrency || 4;
 

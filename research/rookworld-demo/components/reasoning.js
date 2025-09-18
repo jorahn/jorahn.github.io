@@ -44,6 +44,28 @@ export class ReasoningComponent {
     // Set up event listeners
     this.setupEventListeners();
 
+    // Check URL parameters for model selection
+    const urlParams = new URLSearchParams(window.location.search);
+    const modelParam = urlParams.get('model');
+    if (modelParam) {
+      const modelSelect = document.getElementById('model-select');
+      if (modelSelect) {
+        // Map URL parameter values to select option values
+        const modelMap = {
+          'rookworld': 'rookworld',
+          'rookworld-lm': 'rookworld',
+          'rook': 'rook-lm',
+          'rook-lm': 'rook-lm'
+        };
+        const mappedModel = modelMap[modelParam.toLowerCase()];
+        if (mappedModel) {
+          modelSelect.value = mappedModel;
+          // Trigger model switch
+          await this.switchModel(mappedModel);
+        }
+      }
+    }
+
     // Initialize environment toggle and game state
     await this.initializeEnvironmentToggle();
   }

@@ -24,10 +24,23 @@ class RookWorldApp {
 
   async loadModelInBackground() {
     try {
-      // Start with RookWorld-LM as default
+      // Check URL parameter for model selection, default to RookWorld-LM
+      const urlParams = new URLSearchParams(window.location.search);
+      const modelParam = urlParams.get('model');
+
+      // Map URL parameter values to model types
+      const modelMap = {
+        'rookworld': 'rookworld',
+        'rookworld-lm': 'rookworld',
+        'rook': 'rook-lm',
+        'rook-lm': 'rook-lm'
+      };
+
+      const modelType = modelParam ? (modelMap[modelParam.toLowerCase()] || 'rookworld') : 'rookworld';
+
       // Models are loaded from HuggingFace by default
       // Set window.USE_LOCAL_MODELS=true in console to use local files
-      await initializeModel('rookworld', (progress) => {
+      await initializeModel(modelType, (progress) => {
         const statusElements = document.querySelectorAll('.loading-status, #reasoning-status');
         statusElements.forEach(el => {
           if (el) {
@@ -42,9 +55,10 @@ class RookWorldApp {
       // console.log('Model loaded successfully');
 
       // Update UI to show model is ready
+      const modelName = modelType === 'rook-lm' ? 'ROOK-LM' : 'RookWorld-LM';
       const statusElements = document.querySelectorAll('.loading-status, #reasoning-status');
       statusElements.forEach(el => {
-        if (el) el.textContent = 'Model ready - RookWorld-LM';
+        if (el) el.textContent = `Model ready - ${modelName}`;
       });
 
       // Hide loading overlay
