@@ -40,6 +40,29 @@
 
     <main>
         <section class="content-section">
+            <h2>Autoresearch in New Domains</h2>
+
+            <div class="project-card">
+                <h3>A Custom CPU Inference Engine in Nearly 300 Experiments</h3>
+                <p>Karpathy's autoresearch loop, pointed at a systems problem instead of a training run. Coding agents built and tuned a C++ inference engine for a 180B mixture-of-experts model on two ten-year-old Dell servers: experts pinned to four memory domains, activations exchanged over RDMA, speculative decoding with the model's own MTP head. Every change was pre-registered, checked bit-exact against a reference, and kept only if it beat the measured noise floor.</p>
+
+                <div class="metrics">
+                    <h4>Results:</h4>
+                    <ul>
+                        <li>1.45 &rarr; 33 tok/s single-stream decode on Qwen3.8-Flash-Next (180B total, 6B active, 4-bit), no GPU</li>
+                        <li>Stock llama.cpp on the same model: 5.3 tok/s</li>
+                        <li>Nearly 300 experiments, about 1,300 commits, nine days</li>
+                        <li>The same loop tuned the fan controller and checked the acoustic enclosure design</li>
+                    </ul>
+                </div>
+
+                <div class="demo-link">
+                    <a href="/blog/own-your-intelligence/" class="btn-primary">Read the write-up</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
             <h2>Interactive Demos</h2>
             
             <div class="project-card">
@@ -89,29 +112,6 @@
                 <div class="demo-link">
                     <a href="/research/rook-clf-demo/" class="btn-primary">Launch Demo</a>
                     <p style="margin-top: 10px; font-size: 0.9em; color: #666;">Client-side inference using ONNX Runtime (WASM/WebGPU). Downloads 9MB quantized model. Runs entirely in your browser.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <h2>Autoresearch in New Domains</h2>
-
-            <div class="project-card">
-                <h3>A Custom CPU Inference Engine in Nearly 300 Experiments</h3>
-                <p>Karpathy's autoresearch loop, pointed at a systems problem instead of a training run. Coding agents built and tuned a C++ inference engine for a 180B mixture-of-experts model on two ten-year-old Dell servers: experts pinned to four memory domains, activations exchanged over RDMA, speculative decoding with the model's own MTP head. Every change was pre-registered, checked bit-exact against a reference, and kept only if it beat the measured noise floor.</p>
-
-                <div class="metrics">
-                    <h4>Results:</h4>
-                    <ul>
-                        <li>1.45 &rarr; 33 tok/s single-stream decode on Qwen3.8-Flash-Next (180B total, 6B active, 4-bit), no GPU</li>
-                        <li>Stock llama.cpp on the same model: 5.3 tok/s</li>
-                        <li>Nearly 300 experiments, about 1,300 commits, nine days</li>
-                        <li>The same loop tuned the fan controller and checked the acoustic enclosure design</li>
-                    </ul>
-                </div>
-
-                <div class="demo-link">
-                    <a href="/blog/own-your-intelligence/" class="btn-primary">Read the write-up</a>
                 </div>
             </div>
         </section>
